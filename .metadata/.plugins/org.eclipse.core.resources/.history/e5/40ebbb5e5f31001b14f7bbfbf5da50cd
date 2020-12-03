@@ -1,0 +1,68 @@
+package poly.service.impl;
+
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
+import javax.xml.bind.DatatypeConverter;
+
+import net.sourceforge.tess4j.ITesseract;
+import net.sourceforge.tess4j.Tesseract;
+
+public class test {
+	String base64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAMCAgICAgMCAgIDAwMDBAYEBAQEBAgGBgUGCQgKCgkICQkKDA8MCgsOCwkJDRENDg8QEBEQCgwSExIQEw8QEBD/2wBDAQMDAwQDBAgEBAgQCwkLEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBD/wAARCAAsAE4DASIAAhEBAxEB/8QAHQAAAgIDAQEBAAAAAAAAAAAAAAEDBwUGCAIECf/EACwQAAEDBAECBAYDAQAAAAAAAAECAwQABQYREgcxIUFRkQgTFTJhcSKBsRb/xAAWAQEBAQAAAAAAAAAAAAAAAAAAAQL/xAAdEQEAAgIDAQEAAAAAAAAAAAAAARECIQMxQWFC/9oADAMBAAIRAxEAPwD9U6KKKAoqKRIZjMrkPrCG2wVKUewHrWpY/wBW+nuUXl2wWTKYMuc0SC0hzajrv4a8qHTcqVB8yK0K/dbum+M3teO3bJoTE9s8Vsrc0oH01T4eW36lsVDHkMy4zUphQW06hLiFDxBBGwaxGWZvjGEW/wCp5Pd48BgnilTqtBR12FJ0RtnqKwWJ5njeb21N2xm6sT4xOitpXIA1nBrypv1Ls6R7U6R7VJVVfxL5GvGOkF8ubbrjakoQOTf3AFaQdf0apXpbesGOZ2Vt/G5FmeUEiJNTDU0qUSezilDWySfar+65YXKzzprdsegpKpLyELbA7kpWFaHtVM2qfnHVS/41jc/CnLQzjUpmTJkc97U0rYSf2Kcc1lRlvF1E+vgytYG9JJA/VcXSE5PAzvO86u3Tq03OyRLwX35U9tQeQwG0kloa/l/XnXaLyV/IWlo6VxISfQ6rmTNcr6ruDJ+lM3GHp6r6tUa3zeQGmikDlod/GpGs7X806Jxa6Qb3j9vuVvSlEd+O2ptKeyQUjw/qtR6h9MMezO9W6+5XMCrbaSHVxXin5C9bH8tn8iti6f487i+I22zPqKnWGEBzfkriNj3qk/isyvN47tpw/HrC9MtVwWPqjyF6HySDtJ1V5NzpMPrJfDnCjf8AW5ndMbYXHxl+Sy3Aa4FCAUBSV8R6ch3q/O3lVUdAcoau1hXZomK/Ro1t4toTy3zJ3s+/+1bFay1USzHooooqNEdEaNQtRIjDinWIrTa1/cpKACf2amPrSPh71EM9u9QqiRXHkvrjtKcR2WUAqH6NSr8Ek/ilvfuBS1M+gqF+DDlaMmIy8QPDm2Ff7U+6O9OhBGhxIgIixGWQrv8ALbCd+1fRXjf2/k17qo//2Q=='";
+	public test() {
+		if(decoder(base64, "E:/test.jpg"))
+			System.out.println("성공");
+		else
+			System.out.println("실패");
+	}
+	
+	public static boolean decoder(String base64, String target){
+		int start = base64.indexOf(",");
+		String str = base64.substring(start+1, base64.length());
+		int end = str.indexOf("'");
+		String result = str.substring(0, end);
+		byte[] imageBytes = DatatypeConverter.parseBase64Binary(result);
+
+		try {
+				BufferedImage bufImg = ImageIO.read(new ByteArrayInputStream(imageBytes));
+				ImageIO.write(bufImg, "jpg", new File(target));
+				return true;
+		} catch (IOException e) {
+			return false;
+		}
+	}
+	
+
+	public static String process(String fileName) throws Exception {
+		
+
+		
+		//File imageFile = new File(CmmUtil.nvl(pDTO.getFilePath()) + "//" + CmmUtil.nvl(pDTO.getFileName()));
+		File inputFile = new File(fileName);
+		//File imageFile = new File("blob:http://127.0.0.1:5500/0077811c-328f-471a-82cd-98f6bded1155");
+		
+		// OCR 기술 사용을 위한 Tesseract 플랫폼 객체 생성
+		ITesseract instance = new Tesseract();
+		
+		// OCR 분석에 필요한 기준 데이터(이미 각 나라의 언어별로 학습시킨 데이터 위치 폴더)
+		// 저장 경로는 물리경로를 사용함(전체 경로)
+		instance.setDatapath("E:\\ocrdata");
+		
+		// 한국어 학습 데이터 선택(기본 값은 영어)
+		 instance.setLanguage("kor"); // 한국어 설정
+		// instance.setLanguage("eng"); // 영어 설정
+		
+		// 이미지 파일로부터 텍스트 읽기
+		String result = instance.doOCR(inputFile);
+		
+		return result;
+	}
+	
+	public static void main(String[] args) {
+		 new test(); 
+	}
+}

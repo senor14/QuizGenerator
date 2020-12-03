@@ -1,0 +1,6 @@
+INDEX VERSION 1.4+C:\Users\Sun\Desktop\QuizGenerator\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
+2882047568.index
+1127581930.index
+2101921620.index
+120923993.index
+2331896704.index
