@@ -162,8 +162,6 @@
 			<version>1.6.8</version>
 		</dependency>
 
-
-
 		<!-- MyBatis, DBCP -->
 		<dependency>
 			<groupId>org.mybatis</groupId>
@@ -197,7 +195,7 @@
 		<dependency>
 		    <groupId>mysql</groupId>
 		    <artifactId>mysql-connector-java</artifactId>
-		    <version>8.0.13</version>
+		    <version>8.0.22</version>
 		</dependency>
 		
 		<!-- 오라클 DBCP 관리를 위한 c3p0 -->

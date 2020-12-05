@@ -78,21 +78,17 @@ public class OcrService implements IOcrService {
 	public OcrService() throws Exception {
 
 	}
-	
 	public OcrService(String ba64, String name) throws Exception {
-		
-		log.info(this.getClass().getName() + ".OcrService 시작!!!");
+
 		String base64 = ba64 + "'";
 
 		if(decoder(base64, name+ ".jpg"))
 			System.out.println("성공");
 		else
 			System.out.println("실패"); 
-		log.info(this.getClass().getName() + ".OcrService 끝!!!");
 	}
 	
 	public static boolean decoder(String base64, String target){
-		
 		int start = base64.indexOf(",");
 		String str = base64.substring(start+1, base64.length());
 		int end = str.indexOf("'");
@@ -112,7 +108,7 @@ public class OcrService implements IOcrService {
 
 	public static String process(String fileName, boolean lang) throws Exception {
 		
-		
+
 		//File imageFile = new File(CmmUtil.nvl(pDTO.getFilePath()) + "//" + CmmUtil.nvl(pDTO.getFileName()));
 		File inputFile = new File(fileName+ ".jpg");
 		//File imageFile = new File("blob:http://127.0.0.1:5500/0077811c-328f-471a-82cd-98f6bded1155");
@@ -149,6 +145,7 @@ public class OcrService implements IOcrService {
 
 	@Override
 	public OcrDTO getReadforImageText(OcrDTO pDTO) throws Exception {
+		// TODO Auto-generated method stub
 		return null;
 	}
 }

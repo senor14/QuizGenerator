@@ -149,6 +149,7 @@ public class OcrService implements IOcrService {
 
 	@Override
 	public OcrDTO getReadforImageText(OcrDTO pDTO) throws Exception {
+		// TODO Auto-generated method stub
 		return null;
 	}
 }
