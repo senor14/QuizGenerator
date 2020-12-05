@@ -1,4 +1,9 @@
-@CHARSET "UTF-8";
+@charset "UTF-8";
+
+#formform {
+	height: 100%;
+  width: 100%;
+}
 
 #qna {
   display: flex;
@@ -115,4 +120,9 @@
   width: 330px;
   height: 50px;
   font-size: 15px;
+}
+
+.colorShade {
+	width: 30px;
+	height: 30px;
 }

@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html; charset=euc-kr"
 	pageEncoding="UTF-8"%>
 <%@page import="poly.service.impl.OcrService"%>
 <%@page import="poly.service.IOcrService"%>
@@ -6,8 +6,8 @@
 <%@page import="static poly.util.CmmUtil.nvl"%>
 <%@page import="poly.controller.ImgController"%>
 <%
-	String value = nvl((String)request.getAttribute("value"));
-	ImgController ic = new ImgController();
+	String value = nvl((String) request.getAttribute("value"));
+ImgController ic = new ImgController();
 %>
 <!DOCTYPE html>
 <html>
@@ -45,7 +45,6 @@ html, body {
 <script type="text/javascript" src="../../../js/html2canvas.js"></script>
 <script type="text/javascript">
       let jcropApi = null;
-      let count = 0;
       // @breif 이미지 크롭 영역지정 UI 나타내기
       function imgCropDesignate() {
         let editWidth = $("#editImg").width();
@@ -57,15 +56,6 @@ html, body {
         let y1 = 0;
         let x2 = 100;
         let y2 = 100;
-
-
-        /*
-        let x1 = window.screen.width / 2 - editWidth;
-        let y1 = window.screen.height / 2 - editHeight;
-        let x2 = editWidth / 1.5;
-        let y2 = editHeight / 1.5;
-        */
-
 
         // @breif jcrop 실행
         $("#editImg").Jcrop(
@@ -101,7 +91,7 @@ html, body {
       }
 
       // @breif 크롭한 영역 잘라내고 추출하기
-      function imgCropApply() {
+      function imgCropApply(lang) {
         if (parseInt($("#wLength").val()) == "NaN") {
           alert("이미지를 크롭한 이후\n자르기 버튼을 클릭하세요.");
           return false;
@@ -110,13 +100,9 @@ html, body {
             let crop_img = "#crop__img__0" + cnt;
             let crop_id = document.querySelector(crop_img).src;
               if (crop_id !== undefined && crop_id !== "") continue;
+            partShot();
             let edit_img = "#editImg";
             let crop_img_sel = document.querySelector(crop_img);
-            //let imgArea_sel = document.querySelector(".imgArea");
-            //let new_img = document.createElement("img");
-            //imgArea_sel.appendChild(new_img);
-            //crop_img_sel.appendChild(new_img);
-            //new_img.setAttribute("id", crop_img);
 
             let editImage = new Image();
             editImage.src = $("#editImg").attr("src");
@@ -143,7 +129,6 @@ html, body {
 
               // @breif 편집한 캔버스의 이미지를 화면에 출력한다.
               let dataURI = canvas.toDataURL("image/jpeg");
-              //let crop_id = document.getElementById(crop_img);
               let edit_id = document.querySelector(edit_img);
 
               crop_img_sel.setAttribute("src", dataURI);
@@ -152,12 +137,10 @@ html, body {
               //$("#editImg"+cnt).attr("src", dataURI);
 
               let temp_img = document.createElement("img");
-              temp_img.setAttribute("src", "../../../img/0" + cnt + ".jpg");
+              temp_img.setAttribute("src", "../../../img/0" + cnt + ".png");
               temp_img.setAttribute("id", "shade__img__0"+cnt);
 
               temp_img.style.position = "absolute";
-              //temp_left = parseInt($("#xAxis").val()) + document.querySelector("#pic_id").offsetLeft;
-              //temp_img.style.left = temp_left + "px";
               temp_img.style.left = $("#xAxis").val() + "px";
               temp_img.style.top = $("#yAxis").val() + "px";
               temp_img.style.width = $("#wLength").val() + "px";
@@ -195,43 +178,27 @@ html, body {
                 canvas.height
               );
 
-              /*var pixelate = new Pixelate(qrepImage, {
-              amount: 0.7, // default: 0, pixelation percentage amount (range from 0 to 1)
-          });*/
-              //crop_id.onload = drawImageActualSize; // Draw when image has loaded
-
-              // @breif 이미지의 크기는 자른 이미지와 동일하게 지정
-              //$("#editImg"+cnt).css("width", $("#wLength").val());
-
-              //$("#editImg"+cnt).css("height", $("#hLength").val());
-              
-		 		console.log("dfdfsdfsdfsdf"+dataURI);
-
                $.ajax({
                 url: '/img/img2.do',
-                async : false,
-                type : "get",
+                async : true,
+                type : "post",
                 data : {base64 : dataURI,
-                        num : cnt},
+                        num : cnt,
+                        lang : lang},
                 success: function(data){
                 	console.log("성공");
                 	console.log(data);
-                	document.querySelector("#answer_0"+cnt).setAttribute("value", data);
-
-                	
+                	let decodedata = decodeURI(data);
+                	console.log(decodedata);
+                	document.querySelector('#answer_0'+cnt).setAttribute('value', data);
+                	document.querySelector('#cropImgSrc0'+cnt).setAttribute('value', dataURI);
                 }
               }) 
-              
-              //document.querySelector("#answer_0"+cnt).setAttribute("value", data);
-			
+
               imgCropDesignate();
 
             };
             
-              
-              //document.querySelector("#answer_0"+cnt).setAttribute("value", data);
-            //$("#cutBtn").css("display", "none");
-
             // @details JCROP을 종료한다.
             jcropApi.destroy();
             jcropApi = null;
@@ -240,22 +207,6 @@ html, body {
         }
       }
 
-      /*  function drawImageActualSize() {
-    	  // Use the intrinsic size of image in CSS pixels for the canvas element
-    	  canvas.width = this.naturalWidth;
-    	  canvas.height = this.naturalHeight;
-
-    	  // Will draw the image as 300x227, ignoring the custom size of 60x45
-    	  // given in the constructor
-    	  canvasContext.drawImage(this, $("#xAxis").val(), $("#yAxis").val());
-
-    	  // To use the custom size we'll have to specify the scale parameters 
-    	  // using the element's width and height properties - lets draw one 
-    	  // on top in the corner:
-    	  canvasContext.drawImage(this, $("#xAxis").val(), $("#yAxis").val(), $("#wLength").val(), $("#hLength").val(), $("#xAxis").val(), $("#yAxis").val(), canvas.width, canvas.height);
-			
-    } */
-      
       // @breif 이미지 업로드 함수
       function uploadImgFilePrinted(up) {
         // @details 업로드 파일 정보를 받아온다.
@@ -264,6 +215,12 @@ html, body {
         //let fileInfo = document.getElementById("uploadFile").files[0];
         let reader = new FileReader();
 
+        let jcrop = document.querySelector('.jcrop-holder');
+        if (jcrop !== null) {
+        	jcrop.parentNode.removeChild(jcrop);
+            jcropApi.destroy();
+            jcropApi = null;
+        }
         reader.onload = function () {
           // @details 업로드 이미지 출력
           $("#editImg").attr("src", reader.result);
@@ -278,13 +235,6 @@ html, body {
           $(".qna__btn__edit").css("display", "inline");
 
           $(".qna__ques").css("postion", "relative");
-
-          //$("#editImg").css("width", "470px");
-          //$("#editImg").css("height", "664.58px");
-          //$("#editImg").css("height", "100%");
-          //$("#editImg").css("width", "70.72135785%");
-          //$("#editImg").css("width", $("#editImg").height() / 1.414 +"px");
-          //$("#editImg").css("padding-bottom", "70.72135785%");
 
           canvasDrawImage(function () {
             alert("이미지 업로드가 완료되었습니다.");
@@ -309,6 +259,9 @@ html, body {
           let canvas = document.querySelector("canvas");
           let canvasContext = canvas.getContext("2d");
 
+          $('#editImg').css("width","100%");
+          $('#editImg').css("height","100%");
+          
           canvas.width = $("#editImg").width();
           canvas.height = $("#editImg").height();
           canvasContext.drawImage(
@@ -331,6 +284,7 @@ html, body {
       function cancelCropImage(cnt) {
         
         let crp_img = "#crop__img__" + cnt;
+        if (document.querySelector(crp_img).src === null || document.querySelector(crp_img).src === "") return;
         document.querySelector(crp_img).removeAttribute('src');
 
         let shade_img = "#shade__img__" + cnt;
@@ -339,55 +293,19 @@ html, body {
         let input_id = document.querySelector(input_value);
         shade_id.parentNode.removeChild(shade_id);
         input_id.removeAttribute('value');
-        //$('shade__img__' + cnt).remove();
-        //$( crp_img ).removeAttr( 'src' );
 
-        
-        /*if (cnt > 0) {
-          let cropImg = document.querySelector(".crop_img");
-          let shade = document.querySelector(".qna__ques");
-
-          cropImg.removeChild(cropImg.lastChild);
-          shade.removeChild(shade.lastChild);
-
-          cnt--;
-        }*/
-
-        //if (cnt == 0) $(".btn").css("width", "50%");
-        //else $(".btn").css("width", "10%");
       }
-
-      // 전체 스샷
-      /* function bodyShot() { 
-    	html2canvas(document.body)
-    	//document에서 body 부분을 스크린샷을 함.
-    	.then(
-    			function (canvas) {
-    				//canvas 결과값을 drawImg 함수를 통해서
-    				//결과를 canvas 넘어줌.
-    				//png의 결과 값
-    				drawImg(canvas.toDataURL('image/png'));
-    				
-    				//appendchild 부분을 주석을 풀게 되면 body
-    				//document.body.appendChild(canvas);
-    				
-    				//특별부록 파일 저장하기 위한 부분.
-    				saveAs(canvas.toDataURL(), 'file-name.png');
-    				}).catch(function (err) {
-    					console.log(err);
-    					});
-    	} */
 
       // 부분 스샷
       function partShot() {
         //특정부분 스크린샷
-        html2canvas(document.querySelector(".qna__ques"))
+        html2canvas(document.querySelector(".qna__ques__pic"))
           //id container 부분만 스크린샷
           .then(function (canvas) {
             //jpg 결과값
             drawImg(canvas.toDataURL("image/jpeg"));
             //이미지 저장
-            saveAs(canvas.toDataURL(), "file-name.jpg");
+            //saveAs(canvas.toDataURL(), "file-name.jpg");
           })
           .catch(function (err) {
             console.log(err);
@@ -412,6 +330,7 @@ html, body {
             };
             imageObj.src = imgData;
             //그릴 image데이터를 넣어준다.
+            document.querySelector('#editImgSrc').setAttribute('value', imageObj.src);
           },
           function reject() {}
         );
@@ -439,159 +358,139 @@ html, body {
 	<input type="hidden" id="hLength" value="0" placeholder="선택영역의_h높이" />
 	<input type="file" id="uploadFile"
 		onChange="uploadImgFilePrinted('uploadFile');" accept="image/*" />
-	<div class="qna" id="qna">
-		<div class="qna qna__ques_o" id="qna__ques">
-			<div class="qna__ques qna__ques__title title">
-				<h3 class="title">
-					<a href="#">과목</a> - <a href="#">소제목</a>
+	<form action="/img/img/enrollment.do" method="post" id="formform"
+		name="formform">
+		<div class="qna" id="qna">
+			<div class="qna qna__ques_o" id="qna__ques">
+				<div class="qna__ques qna__ques__title title">
+					<h3 class="title">
+						<a href="#">과목</a> - <a href="#">소제목</a>
 					</h3>
-			</div>
-			<div class="qna__ques qna__ques__pic">
-				<a href="javascript:;" onClick="$('#uploadFile').click();"
-					id="pic_id"> <img id="editImg" src="../../../img/user.png">
-				</a>
-			</div>
-			<canvas id="canvas"></canvas>
-		</div>
-		<div class="btn qna qna__btn" id="qna__btn">
-			<div class="btn qna__btn qna__btn__edit">
-				<input type="button" value="편집" onClick="imgCropDesignate();" />
-			</div>
-			<div class="btn qna__btn qna__btn__upload">
-				<input type="file" name="file" id="uploadAnother"
-					onChange="uploadImgFilePrinted('uploadAnother');" accept="image/*"
-					style="display: none;" />
-				<div class="button" onClick="$('#uploadAnother').click();">업로드</div>
-			</div>
-			<div class="btn qna__btn qna__btn__cut">
-				<input type="button" value="자르기" onClick="imgCropApply();" />
-			</div>
-			<div class="btn qna__btn qna__btn__enroll">
-				<input type="button" value="등록" />
-			</div>
-			<div class="btn qna__btn qna__btn__cap">
-				<input type="button" value="임시캡쳐" onclick="partShot();" />
-			</div>
-		</div>
-		<div class="qna qna__ans" id="qna__ans">
-			<div class="qna__ans qna__ans__title title">
-				<h3 class="title">
-					<a href="#">문제리스트</a>
-					</h3>
-			</div>
-			<div class="qna__ans qna__ans__group" id="qna__ans__group">
-				<div class="qna__ans__grp ans__group__01">
-					<span class="qna__ans__group__num">01</span>
-					<div class="qna__ans__group__pic qna__ans__group__pic__01">
-						<img id="crop__img__01">
-					</div>
-					<span class="qna__ans__group__arrow">-></span> <span
-						class="qna__ans__group__answer"> <input type="text"
-						class="answer" id="answer_01" />
-					</span> <span class="btn qna__ans__group qna__ans__group__btn"> <input
-						type="button" value="지우기" class="btn btn__cut btn__cut__01"
-						onClick="cancelCropImage('01');" />
-					</span>
 				</div>
-				<div class="qna__ans__grp ans__group__02">
-					<span class="qna__ans__group__num">02</span>
-					<div class="qna__ans__group__pic qna__ans__group__pic__02">
-						<img id="crop__img__02">
-					</div>
-					<span class="qna__ans__group__arrow">-></span> <span
-						class="qna__ans__group__answer"> <input type="text"
-						class="answer" id="answer_02" />
-					</span> <span class="btn qna__ans__group qna__ans__group__btn"> <input
-						type="button" value="지우기" class="btn btn__cut btn__cut__02"
-						onClick="cancelCropImage('02');" />
-					</span>
+				<div class="qna__ques qna__ques__pic">
+					<a href="javascript:;" onClick="$('#uploadFile').click();"
+						id="pic_id"> <img id="editImg" src="../../../img/user.png">
+					</a> <input type="hidden" id="editImgSrc" name="editImgSrc" />
 				</div>
-				<div class="qna__ans__grp ans__group__03">
-					<span class="qna__ans__group__num">03</span>
-					<div class="qna__ans__group__pic qna__ans__group__pic__03">
-						<img id="crop__img__03">
-					</div>
-					<span class="qna__ans__group__arrow">-></span> <span
-						class="qna__ans__group__answer"> <input type="text"
-						class="answer" id="answer_03" />
-					</span> <span class="btn qna__ans__group qna__ans__group__btn"> <input
-						type="button" value="지우기" class="btn btn__cut btn__cut__03"
-						onClick="cancelCropImage('03');" />
-					</span>
-				</div>
-				<div class="qna__ans__grp ans__group__04">
-					<span class="qna__ans__group__num">04</span>
-					<div class="qna__ans__group__pic qna__ans__group__pic__04">
-						<img id="crop__img__04">
-					</div>
-					<span class="qna__ans__group__arrow">-></span> <span
-						class="qna__ans__group__answer"> <input type="text"
-						class="answer" id="answer_04" />
-					</span> <span class="btn qna__ans__group qna__ans__group__btn"> <input
-						type="button" value="지우기" class="btn btn__cut btn__cut__04"
-						onClick="cancelCropImage('04');" />
-					</span>
-				</div>
-				<div class="qna__ans__grp ans__group__05">
-					<span class="qna__ans__group__num">05</span>
-					<div class="qna__ans__group__pic qna__ans__group__pic__05">
-						<img id="crop__img__05">
-					</div>
-					<span class="qna__ans__group__arrow">-></span> <span
-						class="qna__ans__group__answer"> <input type="text"
-						class="answer" id="answer_05" />
-					</span> <span class="btn qna__ans__group qna__ans__group__btn"> <input
-						type="button" value="지우기" class="btn btn__cut btn__cut__05"
-						onClick="cancelCropImage('05');" />
-					</span>
-				</div>
+				<canvas id="canvas"></canvas>
 			</div>
-		</div>
-		<!--
-      <div class="imgArea" style="float: left; width: 50%">
-        <a href="javascript:;" onClick="$('#uploadFile').click();" id="pic_id">
-          <img id="editImg" src="../../../img/user.png"/ width="50%"
-          height="50%">
-        </a>
-        <br />
-      </div>
 
-      <div class="crop_img" style="float: right; width: 40%"></div>
-      <div class="btn" style="float: right; width: 50%">
-        <input
-          id="editBtn"
-          type="button"
-          onClick="imgCropDesignate();"
-          value="편집"
-        />
-        <input
-          id="cutBtn"
-          type="button"
-          onClick="imgCropApply();"
-          value="자르기"
-          style="text-align: center"
-        />
-        <br />
-        <input
-          id="canBtn"
-          type="button"
-          onClick="cancelCropImage();"
-          value="되돌리기"
-          style="text-align: center"
-        />
-        -->
-		<!-- 전체 부분
-        <button onclick=bodyShot()>bodyShot</button>-->
-		<!-- 일부분-->
-		<!--
-        <button onclick="partShot()">partShot</button>
--->
-		<!-- 결과화면을 그려줄 canvas 
-        <canvas id="canvas" width="900" height="600" style="border:1px solid #d3d3d3;"></canvas>-->
-	</div>
-	<!--
-      <canvas id="canvas"></canvas>
-      -->
-	</div>
+			<div class="btn qna qna__btn" id="qna__btn">
+				<div class="btn qna__btn qna__btn__edit">
+					<input type="button" value="편집" onClick="imgCropDesignate();" />
+				</div>
+				<div class="btn qna__btn qna__btn__upload">
+					<input type="file" name="file" id="uploadAnother"
+						onChange="uploadImgFilePrinted('uploadAnother');" accept="image/*"
+						style="display: none;" />
+					<div class="button" onClick="$('#uploadAnother').click();">업로드</div>
+				</div>
+				<div class="btn qna__btn qna__btn__cut">
+					<label> <input type="checkbox" id="hangul" name="lang"
+						value="hangul">한글
+					</label> <br /> <input type="button" value="자르기"
+						onClick="imgCropApply($('#hangul').is(':checked'));" />
+				</div>
+				<div class="btn qna__btn qna__btn__enroll">
+					<input type="submit" value="등록" />
+				</div>
+				<!-- 
+				<div class="btn qna__btn qna__btn__cap">
+					<input type="button" value="임시캡쳐" onclick="partShot();" />
+				</div>
+				 -->
+			</div>
+
+			<div class="qna qna__ans" id="qna__ans">
+				<div class="qna__ans qna__ans__title title">
+					<h3 class="title">
+						<a href="#">문제리스트</a>
+					</h3>
+					<p>- 한글은 한글 체크 / 숫자, 영어는 한글 체크 해제
+					<br/>
+					- 색깔 영역을 더블 클릭하면 해당 가리개, 이미지가 지워집니다.
+					</p>
+				</div>
+				<div class="qna__ans qna__ans__group" id="qna__ans__group">
+					<div class="qna__ans__grp ans__group__01">
+						<span class="qna__ans__group__num"><img class="colorShade"
+							src="/img/01.png" ondblClick="cancelCropImage('01');" /></span>
+						<div class="qna__ans__group__pic qna__ans__group__pic__01">
+							<img id="crop__img__01"> <input type="hidden"
+								id="cropImgSrc01" name="cropImgSrc01" />
+						</div>
+						<span class="qna__ans__group__arrow">-></span> <span
+							class="qna__ans__group__answer"> <input type="text"
+							class="answer" id="answer_01" name="answer_01" />
+						</span> <span class="btn qna__ans__group qna__ans__group__btn"> <input
+							type="button" value="지우기" class="btn btn__cut btn__cut__01"
+							onClick="cancelCropImage('01');" style="display: none;" />
+						</span>
+					</div>
+					<div class="qna__ans__grp ans__group__02">
+						<span class="qna__ans__group__num"><img class="colorShade"
+							src="/img/02.png" ondblClick="cancelCropImage('02');" /></span>
+						<div class="qna__ans__group__pic qna__ans__group__pic__02">
+							<img id="crop__img__02"> <input type="hidden"
+								id="cropImgSrc02" name="cropImgSrc02" />
+						</div>
+						<span class="qna__ans__group__arrow">-></span> <span
+							class="qna__ans__group__answer"> <input type="text"
+							class="answer" id="answer_02" name="answer_02" />
+						</span> <span class="btn qna__ans__group qna__ans__group__btn"> <input
+							type="button" value="지우기" class="btn btn__cut btn__cut__02"
+							onClick="cancelCropImage('02');" style="display: none;" />
+						</span>
+					</div>
+					<div class="qna__ans__grp ans__group__03">
+						<span class="qna__ans__group__num"><img class="colorShade"
+							src="/img/03.png" ondblClick="cancelCropImage('03');" /></span>
+						<div class="qna__ans__group__pic qna__ans__group__pic__03">
+							<img id="crop__img__03"> <input type="hidden"
+								id="cropImgSrc03" name="cropImgSrc03" />
+						</div>
+						<span class="qna__ans__group__arrow">-></span> <span
+							class="qna__ans__group__answer"> <input type="text"
+							class="answer" id="answer_03" name="answer_03" />
+						</span> <span class="btn qna__ans__group qna__ans__group__btn"> <input
+							type="button" value="지우기" class="btn btn__cut btn__cut__03"
+							onClick="cancelCropImage('03');" style="display: none;" />
+						</span>
+					</div>
+					<div class="qna__ans__grp ans__group__04">
+						<span class="qna__ans__group__num"><img class="colorShade"
+							src="/img/04.png" ondblClick="cancelCropImage('04');" /></span>
+						<div class="qna__ans__group__pic qna__ans__group__pic__04">
+							<img id="crop__img__04"> <input type="hidden"
+								id="cropImgSrc04" name="cropImgSrc04" />
+						</div>
+						<span class="qna__ans__group__arrow">-></span> <span
+							class="qna__ans__group__answer"> <input type="text"
+							class="answer" id="answer_04" name="answer_04" />
+						</span> <span class="btn qna__ans__group qna__ans__group__btn"> <input
+							type="button" value="지우기" class="btn btn__cut btn__cut__04"
+							onClick="cancelCropImage('04');" style="display: none;" />
+						</span>
+					</div>
+					<div class="qna__ans__grp ans__group__05">
+						<span class="qna__ans__group__num"><img class="colorShade"
+							src="/img/05.png" ondblClick="cancelCropImage('05');" /></span>
+						<div class="qna__ans__group__pic qna__ans__group__pic__05">
+							<img id="crop__img__05"> <input type="hidden"
+								id="cropImgSrc05" name="cropImgSrc05" />
+						</div>
+						<span class="qna__ans__group__arrow">-></span> <span
+							class="qna__ans__group__answer"> <input type="text"
+							class="answer" id="answer_05" name="answer_05" />
+						</span> <span class="btn qna__ans__group qna__ans__group__btn"> <input
+							type="button" value="지우기" class="btn btn__cut btn__cut__05"
+							onClick="cancelCropImage('05');" style="display: none;" />
+						</span>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</form>
 </body>
 </html>

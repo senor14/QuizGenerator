@@ -20,6 +20,15 @@ public class OcrDTO {
 	private String base64;
 	private String num;
 	private String result;
+	public boolean isLang() {
+		return lang;
+	}
+
+	public void setLang(boolean lang) {
+		this.lang = lang;
+	}
+
+	private boolean lang;
 
 	public String getResult() {
 		return result;

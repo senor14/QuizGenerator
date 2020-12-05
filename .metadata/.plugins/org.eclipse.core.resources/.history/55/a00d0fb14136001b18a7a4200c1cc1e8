@@ -1,0 +1,17 @@
+package poly.service.impl;
+
+import org.springframework.stereotype.Service;
+
+import poly.dto.QuizDTO;
+import poly.service.IQuizService;
+
+@Service("QuizService")
+public class QuizService implements IQuizService {
+
+	@Override
+	public int insertQuiz(QuizDTO qDTO) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+}
