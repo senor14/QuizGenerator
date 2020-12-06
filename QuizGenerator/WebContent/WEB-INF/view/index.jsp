@@ -117,7 +117,7 @@
 
         <div class="plane-wrapper">
           
-          <span class="plane-title" >문제 만들기</span>
+          <span class="plane-title" ondblclick="location.href='/img/img.do';">문제 만들기</span>
           <div class="plane pasta" ondblclick="location.href='/img/img.do';" >
             <img
               src="/img/pasta2.jpg"
@@ -133,8 +133,8 @@
 
         <div class="plane-wrapper">
         
-          <span class="plane-title">문제 풀기 - 기본</span>
-          <div class="plane pasta">
+          <span class="plane-title" ondblclick="location.href='/cquiz/cquiz.do';">문제 풀기 - 기본</span>
+          <div class="plane pasta" ondblclick="location.href='/cquiz/cquiz.do';">
             <img
               src="/img/pasta3.jpg"
               class="rainbow"

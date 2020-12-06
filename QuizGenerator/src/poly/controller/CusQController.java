@@ -1,5 +1,7 @@
 package poly.controller;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import poly.dto.CusQDTO;
+import poly.dto.OcrDTO;
 import poly.dto.QuizDTO;
 import poly.service.ICusQService;
 import poly.service.IQuizService;
@@ -102,5 +105,27 @@ public class CusQController {
 
 		return "/redirect";
 	}
+	
+	@RequestMapping(value = "cquiz/cquiz")
+	public String getcquiz(HttpServletRequest request, HttpServletResponse response,
+			ModelMap model, List<QuizDTO> qList, List<CusQDTO> cList) throws Exception {
+		
+		log.info(this.getClass().getName() + ".cquiz start!");
+		
+		List<QuizDTO> qrList = quizService.getQuizList();
+		
+		for(QuizDTO qDTO : qrList) {
+			log.info("q_id : " + qDTO.getQ_id());
+			log.info("q_pic : " + qDTO.getQ_pic());
+		}
+		
+		List<CusQDTO> crList = cusQService.getCusQList();
+		
+		log.info(this.getClass().getName() + ".cquiz end!");
+		
+		return "/cquiz/cquiz";
+		
+	}
+	
 
 }

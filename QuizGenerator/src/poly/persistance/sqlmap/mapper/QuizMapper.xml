@@ -6,6 +6,7 @@
 		INSERT INTO q_info
 		(
 			FK_USER_NO,
+			Q_ID,
 			Q_PIC,
 			<!-- Q_CATEGORY,  -->
 			REG_ID,
@@ -16,6 +17,7 @@
 		VALUES
 		(
 			#{fk_user_no},
+			(SELECT IFNULL(MAX(q.Q_ID),0)+1 FROM q_info AS q WHERE q.FK_USER_NO = #{fk_user_no}),
 			#{q_pic},
 			<!--#{q_category},-->
 			#{id},
@@ -24,4 +26,12 @@
 			SYSDATE()
 		)
 	</insert>
+	<select id="getQuizList" resultType="QuizDTO">
+		SELECT 
+			*
+		FROM
+			q_info
+		WHERE
+			Q_ID = #{q_id} AND FK_USER_NO = #{fk_user_no}
+	</select>
 </mapper>

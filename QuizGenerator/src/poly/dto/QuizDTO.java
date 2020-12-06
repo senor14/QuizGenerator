@@ -1,5 +1,7 @@
 package poly.dto;
 
+import java.util.List;
+
 public class QuizDTO {
 
 	private int q_id;
@@ -13,6 +15,16 @@ public class QuizDTO {
     
     // 임시변수
     private String id;
+    
+    private List<Integer> q_id_list;
+    
+	public List<Integer> getQ_id_list() {
+		return q_id_list;
+	}
+
+	public void setQ_id_list(List<Integer> q_id_list) {
+		this.q_id_list = q_id_list;
+	}
 
 	public int getQ_id() {
 		return q_id;

@@ -370,6 +370,7 @@ input[type="text"] {
     </script>
 </head>
 <body>
+<div class="bgcol">
 	<input type="hidden" id="xAxis" value="0" placeholder="선택영역의_x좌표" />
 	<input type="hidden" id="yAxis" value="0" placeholder="선택영역의_y좌표" />
 	<input type="hidden" id="wLength" value="0" placeholder="선택영역의_w넓이" />
@@ -399,7 +400,7 @@ input[type="text"] {
 			<br />
 		</div>
 		<div id="qna">
-			<div class="bgcol">
+			
 				<div class="qna qna__ques_o" id="qna__ques">
 					<div class="qna__ques qna__ques__pic">
 						<a href="javascript:;" onClick="$('#uploadFile').click();"
