@@ -5,6 +5,8 @@ import poly.dto.UserDTO;
 
 @Mapper("UserMapper")
 public interface IUserMapper {
-	
-	UserDTO insertUserInfo() throws Exception;
+
+	int insertMember(UserDTO pDTO);
+
+	UserDTO loginPost(UserDTO pDTO);
 }

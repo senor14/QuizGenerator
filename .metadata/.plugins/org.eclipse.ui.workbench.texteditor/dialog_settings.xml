@@ -9,28 +9,29 @@
 		<item key="isRegEx" value="false"/>
 		<list key="findhistory">
 			<item value="mysql"/>
-			<item value="bgee"/>
-			<item value="canvasDrawImage"/>
-			<item value="editimg"/>
-			<item value="count"/>
-			<item value="v"/>
-			<item value="vis"/>
-			<item value="visi"/>
-			<item value="visibl"/>
-			<item value="visible"/>
-			<item value="imgCropDesignate"/>
-			<item value="junit"/>
-			<item value="my"/>
-			<item value="jsp"/>
-			<item value="utf"/>
+			<item value="숫자"/>
+			<item value="cancelCropIma"/>
+			<item value="cancelCropImg"/>
+			<item value="cancelCropImgae"/>
+			<item value="dbl"/>
+			<item value="문제리스트"/>
+			<item value="임시"/>
+			<item value="Jcrop"/>
+			<item value="jcrop"/>
+			<item value="charset"/>
+			<item value="URIEncoding"/>
+			<item value="encodingFilter"/>
+			<item value="answer_01"/>
+			<item value="imgcrop"/>
 		</list>
 		<list key="replacehistory">
+			<item value=";"/>
 			<item value=""/>
 		</list>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
-		<item key="DIALOG_X_ORIGIN" value="549"/>
-		<item key="DIALOG_Y_ORIGIN" value="118"/>
+		<item key="DIALOG_X_ORIGIN" value="770"/>
+		<item key="DIALOG_Y_ORIGIN" value="310"/>
 		<item key="DIALOG_WIDTH" value="288"/>
 		<item key="DIALOG_HEIGHT" value="391"/>
 		<item key="DIALOG_FONT_NAME" value="1|맑은 고딕|9.0|0|WINDOWS|1|-12|0|0|0|400|0|0|0|1|0|0|0|0|맑은 고딕"/>

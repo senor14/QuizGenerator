@@ -18,7 +18,17 @@ ImgController ic = new ImgController();
 <link type="text/css" rel="stylesheet"
 	href="http://jcrop-cdn.tapmodo.com/v0.9.12/css/jquery.Jcrop.min.css" />
 <!-- 추가 내용 시작-->
+
+<link
+	href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&display=swap"
+	rel="stylesheet" />
 <link type="text/css" rel="stylesheet" href="/css/img.css" />
+<link type="text/css"
+	href="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css"
+	rel="stylesheet" />
+
+<link type="text/css" rel="stylesheet" href="/css/style.css" />
+<link type="text/css" rel="stylesheet" href="/css/style2.css" />
 <!--  추가 내용 끝-->
 <style type="text/css">
 .qna__ques {
@@ -35,14 +45,22 @@ html, body {
 	padding: 0;
 	width: 100%;
 	height: 100%;
+	font-family: "Black Han Sans", "Oswald", Verdana, sans-serif;
+}
+
+input[type="text"] {
+	font-size: 25px;
+	height: 30px;
+	font-family: "Black Han Sans", "Oswald", Verdana, sans-serif;
+
 }
 </style>
 <script type="text/javascript"
 	src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script type="text/javascript"
 	src="http://jcrop-cdn.tapmodo.com/v0.9.12/js/jquery.Jcrop.min.js"></script>
-<script type="text/javascript" src="../../../js/pixelate.js"></script>
-<script type="text/javascript" src="../../../js/html2canvas.js"></script>
+<script type="text/javascript" src="/js/pixelate.js"></script>
+<script type="text/javascript" src="/js/html2canvas.js"></script>
 <script type="text/javascript">
       let jcropApi = null;
       // @breif 이미지 크롭 영역지정 UI 나타내기
@@ -360,136 +378,134 @@ html, body {
 		onChange="uploadImgFilePrinted('uploadFile');" accept="image/*" />
 	<form action="/img/img/enrollment.do" method="post" id="formform"
 		name="formform">
-		<div class="qna" id="qna">
-			<div class="qna qna__ques_o" id="qna__ques">
-				<div class="qna__ques qna__ques__title title">
-					<h3 class="title">
-						<a href="#">과목</a> - <a href="#">소제목</a>
-					</h3>
+		<div id="qna">
+			<div class="bgcol">
+				<div class="qna qna__ques_o" id="qna__ques">
+					<div class="qna__ques qna__ques__pic">
+						<a href="javascript:;" onClick="$('#uploadFile').click();"
+							id="pic_id"> <img id="editImg" src="../../../img/user.png">
+						</a> <input type="hidden" id="editImgSrc" name="editImgSrc" />
+					</div>
+					<canvas id="canvas"></canvas>
 				</div>
-				<div class="qna__ques qna__ques__pic">
-					<a href="javascript:;" onClick="$('#uploadFile').click();"
-						id="pic_id"> <img id="editImg" src="../../../img/user.png">
-					</a> <input type="hidden" id="editImgSrc" name="editImgSrc" />
-				</div>
-				<canvas id="canvas"></canvas>
-			</div>
 
-			<div class="btn qna qna__btn" id="qna__btn">
-				<div class="btn qna__btn qna__btn__edit">
-					<input type="button" value="편집" onClick="imgCropDesignate();" />
-				</div>
-				<div class="btn qna__btn qna__btn__upload">
-					<input type="file" name="file" id="uploadAnother"
-						onChange="uploadImgFilePrinted('uploadAnother');" accept="image/*"
-						style="display: none;" />
-					<div class="button" onClick="$('#uploadAnother').click();">업로드</div>
-				</div>
-				<div class="btn qna__btn qna__btn__cut">
-					<label> <input type="checkbox" id="hangul" name="lang"
-						value="hangul">한글
-					</label> <br /> <input type="button" value="자르기"
-						onClick="imgCropApply($('#hangul').is(':checked'));" />
-				</div>
-				<div class="btn qna__btn qna__btn__enroll">
-					<input type="submit" value="등록" />
-				</div>
-				<!-- 
+				<div class="qna qna__btn" id="qna__btn">
+
+					<div class="btn qna__btn qna__btn__edit"
+						onClick="imgCropDesignate();">편집</div>
+					<div class="btn qna__btn qna__btn__upload">
+						<input type="file" name="file" id="uploadAnother"
+							onChange="uploadImgFilePrinted('uploadAnother');"
+							accept="image/*" style="display: none;" />
+						<div class="button" onClick="$('#uploadAnother').click();">업로드</div>
+					</div>
+					<div class="btn qna__btn qna__btn__cut">
+						<label> <input type="checkbox" id="hangul" name="lang"
+							value="hangul" />한글
+						</label> <br />
+						<div class="btn qna__btn qna__btn__cut"
+							onClick="imgCropApply($('#hangul').is(':checked'));">자르기</div>
+					</div>
+					<div class="btn qna__btn qna__btn__enroll"
+						onClick="document.getElementById('formform').submit();">등록</div>
+					<!-- 
 				<div class="btn qna__btn qna__btn__cap">
 					<input type="button" value="임시캡쳐" onclick="partShot();" />
 				</div>
 				 -->
-			</div>
-
-			<div class="qna qna__ans" id="qna__ans">
-				<div class="qna__ans qna__ans__title title">
-					<h3 class="title">
-						<a href="#">문제리스트</a>
-					</h3>
-					<p>- 한글은 한글 체크 / 숫자, 영어는 한글 체크 해제
-					<br/>
-					- 색깔 영역을 더블 클릭하면 해당 가리개, 이미지가 지워집니다.
-					</p>
 				</div>
-				<div class="qna__ans qna__ans__group" id="qna__ans__group">
-					<div class="qna__ans__grp ans__group__01">
-						<span class="qna__ans__group__num"><img class="colorShade"
-							src="/img/01.png" ondblClick="cancelCropImage('01');" /></span>
-						<div class="qna__ans__group__pic qna__ans__group__pic__01">
-							<img id="crop__img__01"> <input type="hidden"
-								id="cropImgSrc01" name="cropImgSrc01" />
-						</div>
-						<span class="qna__ans__group__arrow">-></span> <span
-							class="qna__ans__group__answer"> <input type="text"
-							class="answer" id="answer_01" name="answer_01" />
-						</span> <span class="btn qna__ans__group qna__ans__group__btn"> <input
-							type="button" value="지우기" class="btn btn__cut btn__cut__01"
-							onClick="cancelCropImage('01');" style="display: none;" />
-						</span>
+
+				<div class="qna qna__ans" id="qna__ans">
+					<div class="qna__ans qna__ans__title title">
+						<p>
+							- 한글은 한글 체크 / 숫자, 영어는 한글 체크 해제 <br /> - 색깔 영역을 더블 클릭하면 해당 가리개,
+							이미지가 지워집니다.
+						</p>
 					</div>
-					<div class="qna__ans__grp ans__group__02">
-						<span class="qna__ans__group__num"><img class="colorShade"
-							src="/img/02.png" ondblClick="cancelCropImage('02');" /></span>
-						<div class="qna__ans__group__pic qna__ans__group__pic__02">
-							<img id="crop__img__02"> <input type="hidden"
-								id="cropImgSrc02" name="cropImgSrc02" />
+					<div class="qna__ans qna__ans__group" id="qna__ans__group">
+						<div class="qna__ans__grp ans__group__01">
+							<div class="qna__ans__group__num">
+								<img class="colorShade" src="/img/01.png"
+									ondblClick="cancelCropImage('01');" />
+							</div>
+							<div class="qna__ans__group__qna">
+								<div class="qna__ans__group__pic qna__ans__group__pic__01">
+									<img id="crop__img__01"> <input type="hidden"
+										id="cropImgSrc01" name="cropImgSrc01" />
+								</div>
+								<div class="qna__ans__group__answer">
+									<input type="text" class="answer" id="answer_01"
+										name="answer_01" />
+								</div>
+							</div>
 						</div>
-						<span class="qna__ans__group__arrow">-></span> <span
-							class="qna__ans__group__answer"> <input type="text"
-							class="answer" id="answer_02" name="answer_02" />
-						</span> <span class="btn qna__ans__group qna__ans__group__btn"> <input
-							type="button" value="지우기" class="btn btn__cut btn__cut__02"
-							onClick="cancelCropImage('02');" style="display: none;" />
-						</span>
-					</div>
-					<div class="qna__ans__grp ans__group__03">
-						<span class="qna__ans__group__num"><img class="colorShade"
-							src="/img/03.png" ondblClick="cancelCropImage('03');" /></span>
-						<div class="qna__ans__group__pic qna__ans__group__pic__03">
-							<img id="crop__img__03"> <input type="hidden"
-								id="cropImgSrc03" name="cropImgSrc03" />
+						<div class="qna__ans__grp ans__group__02">
+							<div class="qna__ans__group__num">
+								<img class="colorShade" src="/img/02.png"
+									ondblClick="cancelCropImage('02');" />
+							</div>
+							<div class="qna__ans__group__qna">
+								<div class="qna__ans__group__pic qna__ans__group__pic__02">
+									<img id="crop__img__02"> <input type="hidden"
+										id="cropImgSrc02" name="cropImgSrc02" />
+								</div>
+								<div class="qna__ans__group__answer">
+									<input type="text" class="answer" id="answer_02"
+										name="answer_02" />
+								</div>
+							</div>
 						</div>
-						<span class="qna__ans__group__arrow">-></span> <span
-							class="qna__ans__group__answer"> <input type="text"
-							class="answer" id="answer_03" name="answer_03" />
-						</span> <span class="btn qna__ans__group qna__ans__group__btn"> <input
-							type="button" value="지우기" class="btn btn__cut btn__cut__03"
-							onClick="cancelCropImage('03');" style="display: none;" />
-						</span>
-					</div>
-					<div class="qna__ans__grp ans__group__04">
-						<span class="qna__ans__group__num"><img class="colorShade"
-							src="/img/04.png" ondblClick="cancelCropImage('04');" /></span>
-						<div class="qna__ans__group__pic qna__ans__group__pic__04">
-							<img id="crop__img__04"> <input type="hidden"
-								id="cropImgSrc04" name="cropImgSrc04" />
+						<div class="qna__ans__grp ans__group__03">
+							<div class="qna__ans__group__num">
+								<img class="colorShade" src="/img/03.png"
+									ondblClick="cancelCropImage('03');" />
+							</div>
+							<div class="qna__ans__group__qna">
+								<div class="qna__ans__group__pic qna__ans__group__pic__03">
+									<img id="crop__img__03"> <input type="hidden"
+										id="cropImgSrc03" name="cropImgSrc03" />
+								</div>
+								<div class="qna__ans__group__answer">
+									<input type="text" class="answer" id="answer_03"
+										name="answer_03" />
+								</div>
+							</div>
 						</div>
-						<span class="qna__ans__group__arrow">-></span> <span
-							class="qna__ans__group__answer"> <input type="text"
-							class="answer" id="answer_04" name="answer_04" />
-						</span> <span class="btn qna__ans__group qna__ans__group__btn"> <input
-							type="button" value="지우기" class="btn btn__cut btn__cut__04"
-							onClick="cancelCropImage('04');" style="display: none;" />
-						</span>
-					</div>
-					<div class="qna__ans__grp ans__group__05">
-						<span class="qna__ans__group__num"><img class="colorShade"
-							src="/img/05.png" ondblClick="cancelCropImage('05');" /></span>
-						<div class="qna__ans__group__pic qna__ans__group__pic__05">
-							<img id="crop__img__05"> <input type="hidden"
-								id="cropImgSrc05" name="cropImgSrc05" />
+						<div class="qna__ans__grp ans__group__04">
+							<div class="qna__ans__group__num">
+								<img class="colorShade" src="/img/04.png"
+									ondblClick="cancelCropImage('04');" />
+							</div>
+							<div class="qna__ans__group__qna">
+								<div class="qna__ans__group__pic qna__ans__group__pic__04">
+									<img id="crop__img__04"> <input type="hidden"
+										id="cropImgSrc04" name="cropImgSrc04" />
+								</div>
+								<div class="qna__ans__group__answer">
+									<input type="text" class="answer" id="answer_04"
+										name="answer_04" />
+								</div>
+							</div>
 						</div>
-						<span class="qna__ans__group__arrow">-></span> <span
-							class="qna__ans__group__answer"> <input type="text"
-							class="answer" id="answer_05" name="answer_05" />
-						</span> <span class="btn qna__ans__group qna__ans__group__btn"> <input
-							type="button" value="지우기" class="btn btn__cut btn__cut__05"
-							onClick="cancelCropImage('05');" style="display: none;" />
-						</span>
+						<div class="qna__ans__grp ans__group__05">
+							<div class="qna__ans__group__num">
+								<img class="colorShade" src="/img/05.png"
+									ondblClick="cancelCropImage('05');" />
+							</div>
+							<div class="qna__ans__group__qna">
+								<div class="qna__ans__group__pic qna__ans__group__pic__05">
+									<img id="crop__img__05"> <input type="hidden"
+										id="cropImgSrc05" name="cropImgSrc05" />
+								</div>
+								<div class="qna__ans__group__answer">
+									<input type="text" class="answer" id="answer_05"
+										name="answer_05" />
+								</div>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
-
 		</div>
 	</form>
 </body>

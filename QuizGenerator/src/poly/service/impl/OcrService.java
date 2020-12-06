@@ -1,9 +1,11 @@
 package poly.service.impl;
 
+import java.awt.Color;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 
 import javax.annotation.Resource;
@@ -11,6 +13,7 @@ import javax.imageio.ImageIO;
 import javax.xml.bind.DatatypeConverter;
 
 import org.apache.log4j.Logger;
+import org.apache.pdfbox.jbig2.Bitmap;
 import org.springframework.stereotype.Service;
 
 import net.sourceforge.tess4j.ITesseract;
@@ -150,5 +153,66 @@ public class OcrService implements IOcrService {
 	@Override
 	public OcrDTO getReadforImageText(OcrDTO pDTO) throws Exception {
 		return null;
+	}
+	
+	public BufferedImage scaleImage(BufferedImage img, int width, int height,
+	        Color background) {
+	    int imgWidth = img.getWidth();
+	    int imgHeight = img.getHeight();
+	    if (imgWidth*height < imgHeight*width) {
+	        width = imgWidth*height/imgHeight;
+	    } else {
+	        height = imgHeight*width/imgWidth;
+	    }
+	    BufferedImage newImage = new BufferedImage(width, height,
+	            BufferedImage.TYPE_INT_RGB);
+	    Graphics2D g = newImage.createGraphics();
+	    try {
+	        g.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
+	                RenderingHints.VALUE_INTERPOLATION_BICUBIC);
+	        g.setBackground(background);
+	        g.clearRect(0, 0, width, height);
+	        g.drawImage(img, 0, 0, width, height, null);
+	    } finally {
+	        g.dispose();
+	    }
+	    return newImage;
+	}
+
+	// SetGrayscale
+	private BufferedImage setGrayscale(BufferedImage img) {
+		
+		for(int y = 0; y < img.getHeight(); y++) {
+			   for(int x = 0; x < img.getWidth(); x++) {
+			       Color colour = new Color(img.getRGB(x, y));
+//			       Choose one from below
+//			       int Y = (int) (0.299 * colour.getRed() + 0.587 * colour.getGreen() + 0.114 * colour.getBlue());
+			       int Y = (int) (0.2126 * colour.getRed() + 0.7152 * colour.getGreen() + 0.0722 * colour.getBlue());
+			       img.setRGB(x, y, new Color(Y, Y, Y).getRGB());
+			   }
+			}
+		
+	    return img;
+	}
+
+	// RemoveNoise
+	private BufferedImage removeNoise(BufferedImage img) {
+	    for (int x = 0; x < img.getWidth(); x++) {
+	        for (int y = 0; y < img.getHeight(); y++) {
+	        	Color colour = new Color(img.getRGB(x, y));
+	            if (colour.getRed() < 162 && colour.getGreen() < 162 && colour.getBlue() < 162) {
+	            	img.setRGB(0, 0, 0);
+	            }
+	        }
+	    }
+	    for (int x = 0; x < img.getWidth(); x++) {
+	        for (int y = 0; y < img.getHeight(); y++) {
+	        	Color colour = new Color(img.getRGB(x, y));
+	            if (colour.getRed() > 162 && colour.getGreen() > 162 && colour.getBlue() > 162) {
+	            	img.setRGB(255, 255, 255);
+	            }
+	        }
+	    }
+	    return img;
 	}
 }
