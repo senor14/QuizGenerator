@@ -21,7 +21,7 @@ public class ImgController {
 	public static int ccnt = 77;
 	public static String value="";
 	@Resource(name = "OcrService")
-	private IOcrService ocrService;
+	private OcrService ocrService;
 	
 	@RequestMapping(value = "img/img")
 	public String imgimg(HttpServletRequest request, HttpServletResponse response,
@@ -50,8 +50,10 @@ public class ImgController {
 			log.info(name+"@@@@@@@@@@@@@");
 			log.info(lang+"@@@@@@@@@@@@@");
 			new OcrService(ba64, name);
+			
+			
 
-			value = OcrService.process(name, lang);
+			value = ocrService.process(name, lang);
 
 			log.info(value+"원본");
 			value = value.trim();

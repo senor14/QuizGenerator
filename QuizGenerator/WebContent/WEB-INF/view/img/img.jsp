@@ -46,13 +46,13 @@ html, body {
 	width: 100%;
 	height: 100%;
 	font-family: "Black Han Sans", "Oswald", Verdana, sans-serif;
+	background-image: url("/img/pasta2.jpg");
 }
 
 input[type="text"] {
 	font-size: 25px;
 	height: 30px;
 	font-family: "Black Han Sans", "Oswald", Verdana, sans-serif;
-
 }
 </style>
 <script type="text/javascript"
@@ -82,7 +82,7 @@ input[type="text"] {
             bgOpacity: 0.2,
             setSelect: [x1, y1, x2, y2],
             onSelect: updateCoords,
-            maxSize: [10000,100]
+            maxSize: [10000,50]
           },
           function () {
             jcropApi = this;
@@ -378,6 +378,26 @@ input[type="text"] {
 		onChange="uploadImgFilePrinted('uploadFile');" accept="image/*" />
 	<form action="/img/img/enrollment.do" method="post" id="formform"
 		name="formform">
+		<div class="navbar navbar-fixed-top">
+			<nav class="navbar-inner header">
+				<div class="container">
+					<a href="/index.do">
+						<div class="brand" style="color: #f89406">QUIZ GENERATOR</div>
+					</a>
+					<ul class="nav pull-right">
+						<li><a class="nav-link"> MYPAGE </a></li>
+						<li><a class="nav-link"> BOARD </a></li>
+						<li><a class="nav-link"> LOGOUT </a></li>
+					</ul>
+					<div class="triangle-down center">
+						<p>
+							<i id="toggle" class="fa fa-chevron-down fa-2x isDown"></i>
+						</p>
+					</div>
+				</div>
+			</nav>
+			<br />
+		</div>
 		<div id="qna">
 			<div class="bgcol">
 				<div class="qna qna__ques_o" id="qna__ques">

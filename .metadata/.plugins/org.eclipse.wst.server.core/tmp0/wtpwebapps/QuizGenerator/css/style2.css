@@ -1,3 +1,7 @@
+.navbar-fixed-top .navbar-inner, .navbar-static-top .navbar-inner {
+	height : 50px;
+}
+
 .navbar-inner li {
   line-height: 40px;
   letter-spacing: 2px;
@@ -60,7 +64,7 @@
 
 .triangle-down {
   position: fixed;
-  margin-top: 65px;
+  margin-top: 50px;
   width: 0;
   height: 0;
   border-left: 30px solid transparent;
@@ -124,6 +128,7 @@ h3:hover {
     background-color: transparent;
     color: #f89406;
     text-decoration: none;
+        height: 50px;
 }
 
 /*# sourceMappingURL=style.css.map */

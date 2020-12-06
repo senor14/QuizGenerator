@@ -13,7 +13,6 @@ import javax.imageio.ImageIO;
 import javax.xml.bind.DatatypeConverter;
 
 import org.apache.log4j.Logger;
-import org.apache.pdfbox.jbig2.Bitmap;
 import org.springframework.stereotype.Service;
 
 import net.sourceforge.tess4j.ITesseract;
@@ -24,13 +23,17 @@ import poly.service.IOcrService;
 
 @Service("OcrService")
 public class OcrService implements IOcrService {
-	
-	@Resource(name="OcrMapper")
+
+	@Resource(name = "OcrMapper")
 	private IOcrMapper ocrMapper;
+
+	public static OcrService ocrService;
+	String ocrba64;
+	String ocrname;
 
 	// 로그 파일 생성 및 로그 출력을 위한 log4j 프레임워크의 자바 객체
 	private Logger log = Logger.getLogger(this.getClass());
-	
+
 	/**
 	 * 이미지 파일로부터 문자 읽어 오기
 	 * 
@@ -81,60 +84,70 @@ public class OcrService implements IOcrService {
 	public OcrService() throws Exception {
 
 	}
-	
+
 	public OcrService(String ba64, String name) throws Exception {
-		
+
 		log.info(this.getClass().getName() + ".OcrService 시작!!!");
 		String base64 = ba64 + "'";
-
-		if(decoder(base64, name+ ".jpg"))
+		if (aOCR(base64, name + ".jpg", name + ".png"))
 			System.out.println("성공");
 		else
-			System.out.println("실패"); 
+			System.out.println("실패");
 		log.info(this.getClass().getName() + ".OcrService 끝!!!");
 	}
-	
-	public static boolean decoder(String base64, String target){
-		
+
+	public static boolean aOCR(String base64, String target1, String target2) {
+
+		// log.info(this.getClass().getName() + ".aOCR 시작!!!");
+
 		int start = base64.indexOf(",");
-		String str = base64.substring(start+1, base64.length());
+		String str = base64.substring(start + 1, base64.length());
 		int end = str.indexOf("'");
 		String result = str.substring(0, end);
 		byte[] imageBytes = DatatypeConverter.parseBase64Binary(result);
 
 		try {
-				BufferedImage bufImg = ImageIO.read(new ByteArrayInputStream(imageBytes));
-				ImageIO.write(bufImg, "jpg", new File(target));
-				
-				return true;
+			BufferedImage bufImg = ImageIO.read(new ByteArrayInputStream(imageBytes));
+
+			ImageIO.write(bufImg, "jpg", new File(target1));
+//			System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!");
+//			bufImg = resize(bufImg, (int) (bufImg.getWidth() * (60 / (double) bufImg.getHeight())), 60);
+
+//			ImageIO.write(bufImg, "png", new File(target2));
+			// log.info(this.getClass().getName() + ".aOCR 끝!!!");
+			return true;
 		} catch (IOException e) {
+			// log.info(this.getClass().getName() + ".aOCR 에러!!!");
 			return false;
 		}
 	}
-	
 
-	public static String process(String fileName, boolean lang) throws Exception {
-		
-		
-		//File imageFile = new File(CmmUtil.nvl(pDTO.getFilePath()) + "//" + CmmUtil.nvl(pDTO.getFileName()));
-		File inputFile = new File(fileName+ ".jpg");
-		//File imageFile = new File("blob:http://127.0.0.1:5500/0077811c-328f-471a-82cd-98f6bded1155");
-		
+	public String process(String fileName, boolean lang) throws Exception {
+
+		log.info(this.getClass().getName() + ".process 시작!!!");
+		// File imageFile = new File(CmmUtil.nvl(pDTO.getFilePath()) + "//" +
+		// CmmUtil.nvl(pDTO.getFileName()));
+		File inputFile = new File(fileName + ".jpg");
+		// File imageFile = new
+		// File("blob:http://127.0.0.1:5500/0077811c-328f-471a-82cd-98f6bded1155");
+
 		// OCR 기술 사용을 위한 Tesseract 플랫폼 객체 생성
 		ITesseract instance = new Tesseract();
-		
+
 		instance.setTessVariable("user_defined_dpi", "300");
 		// OCR 분석에 필요한 기준 데이터(이미 각 나라의 언어별로 학습시킨 데이터 위치 폴더)
 		// 저장 경로는 물리경로를 사용함(전체 경로)
 		instance.setDatapath("E:\\ocrdata");
-		
+
 		// 한국어 학습 데이터 선택(기본 값은 영어)
-		if (lang == true) instance.setLanguage("kor"); // 한국어 설정
-		else instance.setLanguage("eng"); // 영어 설정
-		
+		if (lang == true)
+			instance.setLanguage("kor"); // 한국어 설정
+		else
+			instance.setLanguage("eng"); // 영어 설정
+
 		// 이미지 파일로부터 텍스트 읽기
 		String result = instance.doOCR(inputFile);
-	         
+
 		/*
 		 * String fileName2 = fileName + ".txt"; try{
 		 * 
@@ -144,75 +157,106 @@ public class OcrService implements IOcrService {
 		 * result = result.trim(); result = result.replaceAll(" ", ""); // 파일안에 문자열 쓰기
 		 * fw.write(result); fw.flush(); }catch(Exception e){ e.printStackTrace(); }
 		 */
-		
+		log.info(this.getClass().getName() + ".process 끝!!!");
 
 		return result;
 	}
-	
 
 	@Override
 	public OcrDTO getReadforImageText(OcrDTO pDTO) throws Exception {
 		return null;
 	}
-	
-	public BufferedImage scaleImage(BufferedImage img, int width, int height,
-	        Color background) {
-	    int imgWidth = img.getWidth();
-	    int imgHeight = img.getHeight();
-	    if (imgWidth*height < imgHeight*width) {
-	        width = imgWidth*height/imgHeight;
-	    } else {
-	        height = imgHeight*width/imgWidth;
-	    }
-	    BufferedImage newImage = new BufferedImage(width, height,
-	            BufferedImage.TYPE_INT_RGB);
-	    Graphics2D g = newImage.createGraphics();
-	    try {
-	        g.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
-	                RenderingHints.VALUE_INTERPOLATION_BICUBIC);
-	        g.setBackground(background);
-	        g.clearRect(0, 0, width, height);
-	        g.drawImage(img, 0, 0, width, height, null);
-	    } finally {
-	        g.dispose();
-	    }
-	    return newImage;
-	}
-
-	// SetGrayscale
-	private BufferedImage setGrayscale(BufferedImage img) {
-		
-		for(int y = 0; y < img.getHeight(); y++) {
-			   for(int x = 0; x < img.getWidth(); x++) {
-			       Color colour = new Color(img.getRGB(x, y));
-//			       Choose one from below
-//			       int Y = (int) (0.299 * colour.getRed() + 0.587 * colour.getGreen() + 0.114 * colour.getBlue());
-			       int Y = (int) (0.2126 * colour.getRed() + 0.7152 * colour.getGreen() + 0.0722 * colour.getBlue());
-			       img.setRGB(x, y, new Color(Y, Y, Y).getRGB());
-			   }
-			}
-		
-	    return img;
-	}
-
-	// RemoveNoise
-	private BufferedImage removeNoise(BufferedImage img) {
-	    for (int x = 0; x < img.getWidth(); x++) {
-	        for (int y = 0; y < img.getHeight(); y++) {
-	        	Color colour = new Color(img.getRGB(x, y));
-	            if (colour.getRed() < 162 && colour.getGreen() < 162 && colour.getBlue() < 162) {
-	            	img.setRGB(0, 0, 0);
-	            }
-	        }
-	    }
-	    for (int x = 0; x < img.getWidth(); x++) {
-	        for (int y = 0; y < img.getHeight(); y++) {
-	        	Color colour = new Color(img.getRGB(x, y));
-	            if (colour.getRed() > 162 && colour.getGreen() > 162 && colour.getBlue() > 162) {
-	            	img.setRGB(255, 255, 255);
-	            }
-	        }
-	    }
-	    return img;
-	}
+	/*
+	 * public BufferedImage scaleImage(BufferedImage img, int width, int height,
+	 * Color background) { log.info(this.getClass().getName() +
+	 * ".scaleImage 시작!!!");
+	 * 
+	 * int imgWidth = img.getWidth(); int imgHeight = img.getHeight(); if
+	 * (imgWidth*height < imgHeight*width) { width = imgWidth*height/imgHeight; }
+	 * else { height = imgHeight*width/imgWidth; } BufferedImage newImage = new
+	 * BufferedImage(width, height, BufferedImage.TYPE_INT_RGB); Graphics2D g =
+	 * newImage.createGraphics(); try {
+	 * g.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
+	 * RenderingHints.VALUE_INTERPOLATION_BICUBIC); g.setBackground(background);
+	 * g.clearRect(0, 0, width, height); g.drawImage(img, 0, 0, width, height,
+	 * null); } finally { g.dispose(); } log.info(this.getClass().getName() +
+	 * ".scaleImage 끝!!!"); return newImage; }
+	 * 
+	 * //Resize public static BufferedImage resize(BufferedImage img, int newWidth,
+	 * int newHeight) {
+	 * 
+	 * BufferedImage copy = img;
+	 * 
+	 * double nWidthFactor = (double) img.getWidth() / (double) newWidth; double
+	 * nHeightFactor = (double) img.getHeight() / (double) newHeight;
+	 * 
+	 * double fx, fy, nx, ny; int cx, cy, fr_x, fr_y; Color colour1; Color colour2;
+	 * Color colour3; Color colour4; byte nRed, nGreen, nBlue;
+	 * 
+	 * byte bp1, bp2;
+	 * 
+	 * int cnt = 0;
+	 * 
+	 * for (int x = 0; x < copy.getWidth(); ++x) { for (int y = 0; y <
+	 * copy.getHeight(); ++y) {
+	 * 
+	 * cnt++; System.out.println(cnt+"cnt!!!!!!!!!!!!!!!!!!!!!!!!"); fr_x = (int)
+	 * Math.floor(x * nWidthFactor); fr_y = (int) Math.floor(y * nHeightFactor); cx
+	 * = fr_x + 1; if (cx >= img.getWidth()) cx = fr_x; cy = fr_y + 1; if (cy >=
+	 * img.getHeight()) cy = fr_y; fx = x * nWidthFactor - fr_x; fy = y *
+	 * nHeightFactor - fr_y; nx = 1.0 - fx; ny = 1.0 - fy;
+	 * 
+	 * 
+	 * colour1 = new Color(img.getRGB(fr_x, fr_y)); colour2 = new
+	 * Color(img.getRGB(cx, fr_y)); colour3 = new Color(img.getRGB(fr_x, cy));
+	 * colour4 = new Color(img.getRGB(cx, cy));
+	 * 
+	 * color1 = img.getPixel(fr_x, fr_y); color2 = img.getPixel(cx, fr_y); color3 =
+	 * img.getPixel(fr_x, cy); color4 = img.getPixel(cx, cy);
+	 * 
+	 * 
+	 * // Blue bp1 = (byte) (nx * colour1.getBlue() + fx * colour2.getBlue()); bp2 =
+	 * (byte) (nx * colour3.getBlue() + fx * colour4.getBlue()); nBlue = (byte) (ny
+	 * * (double) (bp1) + fy * (double) (bp2)); System.out.println(nBlue); // Green
+	 * bp1 = (byte) (nx * colour1.getGreen() + fx * colour2.getGreen()); bp2 =
+	 * (byte) (nx * colour3.getGreen() + fx * colour4.getGreen()); nGreen = (byte)
+	 * (ny * (double) (bp1) + fy * (double) (bp2)); System.out.println(nGreen); //
+	 * Red bp1 = (byte) (nx * colour1.getRed() + fx * colour2.getRed()); bp2 =
+	 * (byte) (nx * colour3.getRed() + fx *colour4.getRed()); nRed = (byte) (ny *
+	 * (double) (bp1) + fy * (double) (bp2)); System.out.println(nRed);
+	 * copy.setRGB(x, y, new Color((int)nRed, (int)nGreen, (int)nBlue).getRGB()); }
+	 * }
+	 * 
+	 * copy = setGrayscale(copy); copy = removeNoise(copy);
+	 * 
+	 * 
+	 * return copy; }
+	 * 
+	 * 
+	 * // SetGrayscale private static BufferedImage setGrayscale(BufferedImage img)
+	 * {
+	 * 
+	 * for(int y = 0; y < img.getHeight(); y++) { for(int x = 0; x < img.getWidth();
+	 * x++) { Color colour = new Color(img.getRGB(x, y)); // Choose one from below
+	 * // int Y = (int) (0.299 * colour.getRed() + 0.587 * colour.getGreen() + 0.114
+	 * * colour.getBlue()); int Y = (int) (0.2126 * colour.getRed() + 0.7152 *
+	 * colour.getGreen() + 0.0722 * colour.getBlue()); img.setRGB(x, y, new Color(Y,
+	 * Y, Y).getRGB()); } }
+	 * 
+	 * return img; }
+	 * 
+	 * // RemoveNoise private static BufferedImage removeNoise(BufferedImage img) {
+	 * 
+	 * 
+	 * for (int x = 0; x < img.getWidth(); x++) { for (int y = 0; y <
+	 * img.getHeight(); y++) { Color colour = new Color(img.getRGB(x, y)); if
+	 * (colour.getRed() < 162 && colour.getGreen() < 162 && colour.getBlue() < 162)
+	 * { img.setRGB(x, y, new Color(0, 0, 0).getRGB()); } } } for (int x = 0; x <
+	 * img.getWidth(); x++) { for (int y = 0; y < img.getHeight(); y++) { Color
+	 * colour = new Color(img.getRGB(x, y)); if (colour.getRed() > 162 &&
+	 * colour.getGreen() > 162 && colour.getBlue() > 162) { img.setRGB(x, y, new
+	 * Color(255, 255, 255).getRGB()); } } }
+	 * 
+	 * return img; }
+	 */
 }
