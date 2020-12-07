@@ -16,13 +16,11 @@ public class UserService implements IUserService {
 
 	@Override
 	public UserDTO loginPost(UserDTO pDTO) {
-		// TODO Auto-generated method stub
 		return userMapper.loginPost(pDTO);
 	}
 
 	@Override
 	public int insertMember(UserDTO pDTO) {
-		// TODO Auto-generated method stub
 		return userMapper.insertMember(pDTO);
 	}
 	

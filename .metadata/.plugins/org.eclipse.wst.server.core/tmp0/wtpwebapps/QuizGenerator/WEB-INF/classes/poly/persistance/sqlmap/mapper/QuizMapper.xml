@@ -6,6 +6,7 @@
 		INSERT INTO q_info
 		(
 			FK_USER_NO,
+			Q_ID,
 			Q_PIC,
 			<!-- Q_CATEGORY,  -->
 			REG_ID,
@@ -16,6 +17,7 @@
 		VALUES
 		(
 			#{fk_user_no},
+			(SELECT IFNULL(MAX(q.Q_ID),0)+1 FROM q_info AS q WHERE q.FK_USER_NO = #{fk_user_no}),
 			#{q_pic},
 			<!--#{q_category},-->
 			#{id},
@@ -24,12 +26,22 @@
 			SYSDATE()
 		)
 	</insert>
-	<select id="gelQuizList" parameterType="QuizDTO">
+	<select id="getQuizList" parameterType="QuizDTO" resultType="QuizDTO">
 		SELECT 
-			FK_USER_NO, Q_ID, Q_PIC 
+			*
 		FROM
 			q_info
 		WHERE
-			Q_ID = #{q_id} AND FK_USER_NO = #{fk_user_no}
+			FK_USER_NO = #{fk_user_no}
+	</select>
+	<select id="getExamList" parameterType="java.util.List" resultType="QuizDTO">
+		SELECT 
+			*
+		FROM
+			q_info 
+		WHERE
+		<foreach collection="list" item="q_id_list" separator=",">
+			Q_ID = #{q_id_list.q_id} AND FK_USER_NO = #{q_id_list.fk_user_no}
+		</foreach>
 	</select>
 </mapper>

@@ -11,12 +11,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import poly.dto.CusQDTO;
 import poly.dto.OcrDTO;
 import poly.dto.QuizDTO;
 import poly.service.ICusQService;
 import poly.service.IQuizService;
+import poly.service.impl.OcrService;
 
 @Controller
 public class CusQController {
@@ -112,14 +114,13 @@ public class CusQController {
 		
 		log.info(this.getClass().getName() + ".cquiz start!");
 		
-		List<QuizDTO> qrList = quizService.getQuizList();
+		//List<QuizDTO> qrList = quizService.getQuizList();
 		
-		for(QuizDTO qDTO : qrList) {
-			log.info("q_id : " + qDTO.getQ_id());
-			log.info("q_pic : " + qDTO.getQ_pic());
-		}
+//		for(QuizDTO qDTO : qrList) {
+//			log.info("q_id : " + qDTO.getQ_id());
+//			log.info("q_pic : " + qDTO.getQ_pic());
+//		}
 		
-		List<CusQDTO> crList = cusQService.getCusQList();
 		
 		log.info(this.getClass().getName() + ".cquiz end!");
 		
@@ -127,5 +128,21 @@ public class CusQController {
 		
 	}
 	
+	@RequestMapping(value = "scoring", method=RequestMethod.POST, produces = "application/text; charset=euc-kr")
+	public @ResponseBody int scoring(HttpServletRequest request, HttpServletResponse response,
+			ModelMap model, CusQDTO cDTO) throws Exception {
+		
+		request.setCharacterEncoding("euc-kr");
+		log.info(this.getClass().getName() + ".scoring start!");
+		int sign = 0;
+		log.info(cDTO.getAns()+"#######");
+		log.info(cDTO.getVal()+"#######");
+		
+		
+		
+		log.info(this.getClass().getName() + ".scoring end!");
+		
+		return sign;
+	}
 
 }

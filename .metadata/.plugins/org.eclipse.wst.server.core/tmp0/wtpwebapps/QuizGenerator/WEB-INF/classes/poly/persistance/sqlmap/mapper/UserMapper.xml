@@ -16,7 +16,7 @@
 			CHG_DT
 		)
 		VALUES(
-			<!--(SELECT ISNULL(MAX(U.USER_NO),0)+1 FROM USER_INFO U WHERE 1=1), -->
+			<!--(SELECT IFNULL(MAX(U.USER_NO),0)+1 FROM USER_INFO U WHERE 1=1), -->
 			#{email},
 			#{password},
 			#{user_id},

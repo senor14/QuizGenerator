@@ -10,5 +10,7 @@ public interface IQuizMapper {
 	
 	int insertQuiz(QuizDTO qDTO);
 
-	List<QuizDTO> getQuizList();
+	List<QuizDTO> getQuizList(QuizDTO qrDTO);
+
+	List<QuizDTO> getExamList(QuizDTO qDTO);
 }

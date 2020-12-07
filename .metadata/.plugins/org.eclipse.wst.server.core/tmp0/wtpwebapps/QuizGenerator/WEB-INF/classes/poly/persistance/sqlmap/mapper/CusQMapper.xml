@@ -28,4 +28,12 @@
 			SYSDATE()
 		)
 	</insert>
+	<select id="getCusQList" parameterType="QuizDTO" resultType="CusQDTO">
+		SELECT
+			q.FK_USER_NO, q.Q_ID, q.Q_PIC, cq.CQ_NUM, cq.CQ_ANS, cq.CQ_PIC
+		FROM
+			cus_q_info AS cq, q_info AS q
+		WHERE
+			q.Q_ID = #{q_id} AND q.FK_USER_NO = #{fk_user_no}
+	</select>
 </mapper>

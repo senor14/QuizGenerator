@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=euc-kr"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"
+	pageEncoding="utf-8"%>
 <%@page import="poly.service.impl.OcrService"%>
 <%@page import="poly.service.IOcrService"%>
 <%@page import="poly.dto.OcrDTO"%>
@@ -82,7 +82,7 @@ input[type="text"] {
             bgOpacity: 0.2,
             setSelect: [x1, y1, x2, y2],
             onSelect: updateCoords,
-            maxSize: [10000,50]
+            maxSize: [10000,100]
           },
           function () {
             jcropApi = this;

@@ -16,5 +16,41 @@ public class MainController {
 		
 		return "/index";
 	}
+	// 메인페이지 접속
+	@RequestMapping(value="/main/mainPage.do")
+	public String Main() {
+		log.info(this.getClass()+ "메인접속");
+		
+		return "/main/mainPage";
+	}
+	// 마이페이지 젒속
+	@RequestMapping(value="/main/MyPage.do")
+	public String MyPage() {
+		log.info(this.getClass()+ "게임화면 접속");
+		
+		return "/main/myPage";
+	}
+	// 게임페이지 접속		
+	@RequestMapping(value="/main/StudyGame.do")
+	public String Game() {
+		log.info(this.getClass()+ "게임화면 접속");
+		return "/main/StudyGame";
+	}
+
+	
+	// 마이페이지 젒속
+		@RequestMapping(value="/main/MyPage2.do")
+		public String MyPage2() {
+			log.info(this.getClass()+ "게임화면 접속");
 			
+			return "/main/myPage2";
+		}
+	
+		// 마이페이지 젒속
+				@RequestMapping(value="/main/MyPage3.do")
+				public String MyPage3() {
+					log.info(this.getClass()+ "게임화면 접속");
+					
+					return "/main/myPage3";
+				}
 }

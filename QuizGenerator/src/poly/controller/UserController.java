@@ -6,6 +6,7 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -30,11 +31,11 @@ public class UserController {
 	@RequestMapping(value = "/Login")
 	public String login() {
 		log.info("Login Start!");
-			return "/user/loginForm";
+			return "/kakaoLogin";
 	}
 	
 	// 로그인 체크
-			@RequestMapping(value = "/LoginPost", method = RequestMethod.POST)
+			@RequestMapping(value = "/LoginPost.do", method = RequestMethod.POST)
 			public String loginPost(HttpServletRequest request, HttpSession session, ModelMap model) throws Exception {
 				log.info("#############################################");
 				log.info("LoginPost Start!");
@@ -102,34 +103,37 @@ public class UserController {
 				log.info("#############################################");
 				return "/redirect";
 			}
-		
-			// 로그아웃을 위한 Logout
-			@RequestMapping(value = "/Logout")
-			public String logout(HttpSession session, ModelMap model) throws Exception {
-				log.info("Logout Start!");
-				session.removeAttribute("user_no");
-				session.removeAttribute("user_name");
+			
+			// 로그아웃 처리 매퍼
+			@RequestMapping(value = "user/userLogOut.do")
+			public String logOut(HttpSession session, Model model) throws Exception {
+				log.info(this.getClass() + "user/logOut start!!");
 
-				String msg = "로그아웃 되었습니다";
-				String url = "/Login.do";
+				String msg = "";
+				String url = "";
+				msg = "로그아웃 하시겠습니까?";
+				url = "/Login.do";
+
+				session.invalidate(); // 세션 정보 초기화
 
 				model.addAttribute("msg", msg);
 				model.addAttribute("url", url);
 
-				log.info("Logout End!");
-				return "/redirect";
+				log.info(this.getClass() + "user/loginOut end!!");
+
+				return "/userLogout";
 			}
 			
 			// 회원가입 입력화면
-			@RequestMapping(value = "/Login/insertUserInfo")
+			@RequestMapping(value = "/insertMember")
 			public String insertUserInfo() {
 				log.info("insertUserInfo Start!");
 
-				return "/user/insertUserInfo";
+				return "/UserRegForm";
 			}
 			
 			// 회원가입 실행
-			@RequestMapping(value = "/insertMember", method = RequestMethod.POST)
+			@RequestMapping(value = "/insertMemberProc", method = RequestMethod.POST)
 			public String insertMember(HttpServletRequest request, ModelMap model) throws Exception {
 				log.info("insertMember Start!");
 				// jsp에서 입력값을 가져옴
@@ -171,4 +175,6 @@ public class UserController {
 				log.info("insertUserInfo end!");
 				return "/redirect";
 			}
+
+
 }

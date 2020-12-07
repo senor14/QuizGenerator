@@ -26,12 +26,22 @@
 			SYSDATE()
 		)
 	</insert>
-	<select id="getQuizList" resultType="QuizDTO">
+	<select id="getQuizList" parameterType="QuizDTO" resultType="QuizDTO">
 		SELECT 
 			*
 		FROM
 			q_info
 		WHERE
-			Q_ID = #{q_id} AND FK_USER_NO = #{fk_user_no}
+			FK_USER_NO = #{fk_user_no}
+	</select>
+	<select id="getExamList" parameterType="java.util.List" resultType="QuizDTO">
+		SELECT 
+			*
+		FROM
+			q_info 
+		WHERE
+		<foreach collection="list" item="q_id_list" separator=",">
+			Q_ID = #{q_id_list.q_id} AND FK_USER_NO = #{q_id_list.fk_user_no}
+		</foreach>
 	</select>
 </mapper>

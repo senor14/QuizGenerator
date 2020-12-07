@@ -14,6 +14,43 @@ public class CusQDTO {
     
     // 임시 변수
     private String id;
+    private String q_pic;
+    private String val;
+    private String num;
+    private String ans;
+    
+    
+	public String getAns() {
+		return ans;
+	}
+
+	public void setAns(String ans) {
+		this.ans = ans;
+	}
+
+	public String getNum() {
+		return num;
+	}
+
+	public void setNum(String num) {
+		this.num = num;
+	}
+
+	public String getVal() {
+		return val;
+	}
+
+	public void setVal(String val) {
+		this.val = val;
+	}
+
+	public String getQ_pic() {
+		return q_pic;
+	}
+
+	public void setQ_pic(String q_pic) {
+		this.q_pic = q_pic;
+	}
 
 	public int getFk_user_no() {
 		return fk_user_no;
