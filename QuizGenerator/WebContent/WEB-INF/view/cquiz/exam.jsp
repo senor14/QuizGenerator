@@ -369,8 +369,16 @@ input[type="text"] {
         }
       }
       
-      function scoring(num) {
-    	  $('#crop__img__'+num).attr("src", "/img/correct.jpg");
+      function scoring0(num) {
+    	  if('<%=rList.get(0).get(0).getCq_ans()%>' === $('#answer_0'+num).val()) {
+    		    $('#crop__img__0'+num).css("display", "block");
+    		    $('#smile'+num).css("display", "block");
+        		$('#nosmile'+num).css("display", "none");
+        	} else {
+        		$('#crop__img__0'+num).css("display", "block");
+        		$('#nosmile'+num).css("display", "block");
+        		$('#smile'+num).css("display", "none");
+        	}
     	  $.ajax({
               url: '/scoring.do',
               async : true,
@@ -380,13 +388,123 @@ input[type="text"] {
               	console.log("성공");
               	console.log(data);
               	console.log(<%=rList.get(0).get(0).getCq_ans()%>);
-              	console.log($('#answer_01').val());
-              	if(<%=rList.get(0).get(0).getCq_ans()%> === $('#answer_'+num).val()) {
-              		$('#crop__img__'+num).attr("src", "/img/correct.png");
+              	if(<%=rList.get(0).get(0).getCq_ans()%> === $('#answer_0'+num).val()) {
+              		$('.qna__ans__group__num__0'+num).attr("src", "/img/correct.png");
               	} else {
-              		$('#crop__img__'+num).attr("src", "/img/incorrect.png");
+              		$('.qna__ans__group__num__0'+num).attr("src", "/img/incorrect.png");
               	}
               	
+              }
+            }) 
+      }
+      function scoring1(num) {
+    	  if('<%=rList.get(0).get(1).getCq_ans()%>' === $('#answer_0'+num).val()) {
+    		    $('#crop__img__0'+num).css("display", "block");;
+    		    $('#smile'+num).css("display", "block");
+        		$('#nosmile'+num).css("display", "none");
+        	} else {
+        		$('#crop__img__0'+num).css("display", "block");
+        		$('#nosmile'+num).css("display", "block");
+        		$('#smile'+num).css("display", "none");
+        	}
+    	  $.ajax({
+              url: '/scoring.do',
+              async : true,
+              type : "post",
+              data : {num : num },
+              success: function(data){
+              	console.log("성공");
+              	console.log(data);
+              	console.log(<%=rList.get(0).get(0).getCq_ans()%>);
+              	if(<%=rList.get(0).get(0).getCq_ans()%> === $('#answer_0'+num).val()) {
+              		$('.qna__ans__group__num__0'+num).attr("src", "/img/correct.png");
+              	} else {
+              		$('.qna__ans__group__num__0'+num).attr("src", "/img/incorrect.png");
+              	}
+              	
+              }
+            }) 
+      }
+      function scoring2(num) {
+    	  if('<%=rList.get(0).get(2).getCq_ans()%>' === $('#answer_0'+num).val()) {
+    		    $('#crop__img__0'+num).css("display", "block");
+    		    $('#smile'+num).css("display", "block");
+        		$('#nosmile'+num).css("display", "none");
+        	} else {
+        		$('#crop__img__0'+num).append("<img src='/img/nosmile.png'>");
+        		$('#nosmile'+num).css("display", "block");
+        		$('#smile'+num).css("display", "none");
+        	}
+    	  $.ajax({
+              url: '/scoring.do',
+              async : true,
+              type : "post",
+              data : {num : num },
+              success: function(data){
+              	console.log("성공");
+              	console.log(data);
+              	console.log(<%=rList.get(0).get(0).getCq_ans()%>);
+              	if(<%=rList.get(0).get(0).getCq_ans()%> === $('#answer_0'+num).val()) {
+              		$('.qna__ans__group__num__0'+num).attr("src", "/img/correct.png");
+              	} else {
+              		$('.qna__ans__group__num__0'+num).attr("src", "/img/incorrect.png");
+              	}
+              	
+              }
+            }) 
+      }
+      function scoring3(num) {
+    	  if('<%=rList.get(0).get(3).getCq_ans()%>' === $('#answer_0'+num).val()) {
+    		  $('#crop__img__0'+num).css("display", "block");
+    		  $('#smile'+num).css("display", "block");
+      		$('#nosmile'+num).css("display", "none");
+        	} else {
+        		$('#crop__img__0'+num).append("<img src='/img/nosmile.png'>");
+        		$('#nosmile'+num).css("display", "block");
+        		$('#smile'+num).css("display", "none");
+        	}
+    	  $.ajax({
+              url: '/scoring.do',
+              async : true,
+              type : "post",
+              data : {num : num },
+              success: function(data){
+              	console.log("성공");
+              	console.log(data);
+              	console.log(<%=rList.get(0).get(0).getCq_ans()%>);
+              	if(<%=rList.get(0).get(0).getCq_ans()%> === $('#answer_0'+num).val()) {
+              		$('.qna__ans__group__num__0'+num).attr("src", "/img/correct.png");
+              	} else {
+              		$('.qna__ans__group__num__0'+num).attr("src", "/img/incorrect.png");
+              	}
+              	
+              }
+            }) 
+      }
+      function scoring4(num) {
+    	  if('<%=rList.get(0).get(4).getCq_ans()%>' === $('#answer_0'+num).val()) {
+        		$('#crop__img__0'+num).css("display", "block");
+        		$('#smile'+num).css("display", "block");
+        		$('#nosmile'+num).css("display", "none");
+        	} else {
+        		$('#crop__img__0'+num).append("<img src='/img/nosmile.png'>");
+        		$('#nosmile'+num).css("display", "block");
+        		$('#smile'+num).css("display", "none");
+        	}
+    	  $.ajax({
+              url: '/scoring.do',
+              async : true,
+              type : "post",
+              data : {num : num },
+              success: function(data){
+              	console.log("성공");
+              	console.log(data);
+              	console.log(<%=rList.get(0).get(0).getCq_ans()%>);
+              	if(<%=rList.get(0).get(0).getCq_ans()%> === $('#answer_0'+num).val()) {
+              		$('.qna__ans__group__num__0'+num).attr("src", "/img/correct.png");
+              	} else {
+              		$('.qna__ans__group__num__0'+num).attr("src", "/img/incorrect.png");
+              	}
               	
               }
             }) 
@@ -407,7 +525,7 @@ input[type="text"] {
 			<div class="navbar navbar-fixed-top">
 				<nav class="navbar-inner header">
 					<div class="container">
-						<a href="/index.do">
+						<a href="/main/mainPage.do">
 							<div class="brand" style="color: #f89406">QUIZ GENERATOR</div>
 						</a>
 						<ul class="nav pull-right">
@@ -460,13 +578,15 @@ input[type="text"] {
 					<div class="qna__ans qna__ans__group" id="qna__ans__group">
 						<form name="frm1" id="frm1" action="">
 							<div class="qna__ans__grp ans__group__01">
-								<div class="qna__ans__group__num">
+								<div class="qna__ans__group__num qna__ans__group__num__01">
 									<img class="colorShade" src="/img/01.png"
-										ondblClick="scoring('01');" />
+										ondblClick="scoring0('1');" />
+										<img src='/img/smile.png' id="smile1" style='display:none'/>
+										<img src='/img/nosmile.png' id="nosmile1" style='display:none'/>
 								</div>
 								<div class="qna__ans__group__qna">
 									<div class="qna__ans__group__pic qna__ans__group__pic__01">
-										<img id="crop__img__01"> <input type="hidden"
+										<img id="crop__img__01" src="<%=rList.get(0).get(0).getCq_pic()%>" style="display:none""> <input type="hidden"
 											id="cropImgSrc01" name="cropImgSrc01" />
 									</div>
 
@@ -479,13 +599,15 @@ input[type="text"] {
 							</div>
 						</form>
 						<div class="qna__ans__grp ans__group__02">
-							<div class="qna__ans__group__num">
+							<div class="qna__ans__group__num qna__ans__group__num__02">
 								<img class="colorShade" src="/img/02.png"
-									ondblClick="cancelCropImage('02');" />
+									ondblClick="scoring1('2');" />
+									<img src='/img/smile.png' id="smile2" style='display:none'/>
+										<img src='/img/nosmile.png' id="nosmile2" style='display:none'/>
 							</div>
 							<div class="qna__ans__group__qna">
 								<div class="qna__ans__group__pic qna__ans__group__pic__02">
-									<img id="crop__img__02"> <input type="hidden"
+									<img id="crop__img__02" src="<%=rList.get(0).get(1).getCq_pic()%>" style="display:none"> <input type="hidden"
 										id="cropImgSrc02" name="cropImgSrc02" />
 								</div>
 								<div class="qna__ans__group__answer">
@@ -495,13 +617,15 @@ input[type="text"] {
 							</div>
 						</div>
 						<div class="qna__ans__grp ans__group__03">
-							<div class="qna__ans__group__num">
+							<div class="qna__ans__group__num qna__ans__group__num__03">
 								<img class="colorShade" src="/img/03.png"
-									ondblClick="cancelCropImage('03');" />
+									ondblClick="scoring2('3');" />
+									<img src='/img/smile.png' id="smile3" style='display:none'/>
+										<img src='/img/nosmile.png' id="nosmile3" style='display:none'/>
 							</div>
 							<div class="qna__ans__group__qna">
 								<div class="qna__ans__group__pic qna__ans__group__pic__03">
-									<img id="crop__img__03"> <input type="hidden"
+									<img id="crop__img__03" src="<%=rList.get(0).get(2).getCq_pic()%>" style="display:none"> <input type="hidden"
 										id="cropImgSrc03" name="cropImgSrc03" />
 								</div>
 								<div class="qna__ans__group__answer">
@@ -511,13 +635,15 @@ input[type="text"] {
 							</div>
 						</div>
 						<div class="qna__ans__grp ans__group__04">
-							<div class="qna__ans__group__num">
+							<div class="qna__ans__group__num qna__ans__group__num__04">
 								<img class="colorShade" src="/img/04.png"
-									ondblClick="cancelCropImage('04');" />
+									ondblClick="scoring3('4');" />
+									<img src='/img/smile.png' id="smile4" style='display:none'/>
+										<img src='/img/nosmile.png' id="nosmile4" style='display:none'/>
 							</div>
 							<div class="qna__ans__group__qna">
 								<div class="qna__ans__group__pic qna__ans__group__pic__04">
-									<img id="crop__img__04"> <input type="hidden"
+									<img id="crop__img__04" src="<%=rList.get(0).get(3).getCq_pic()%>" style="display:none"> <input type="hidden"
 										id="cropImgSrc04" name="cropImgSrc04" />
 								</div>
 								<div class="qna__ans__group__answer">
@@ -527,13 +653,15 @@ input[type="text"] {
 							</div>
 						</div>
 						<div class="qna__ans__grp ans__group__05">
-							<div class="qna__ans__group__num">
+							<div class="qna__ans__group__num qna__ans__group__num__05">
 								<img class="colorShade" src="/img/05.png"
-									ondblClick="cancelCropImage('05');" />
+									ondblClick="scoring4('5');" />
+									<img src='/img/smile.png' id="smile5" style='display:none'/>
+										<img src='/img/nosmile.png' id="nosmile5" style='display:none'/>
 							</div>
 							<div class="qna__ans__group__qna">
 								<div class="qna__ans__group__pic qna__ans__group__pic__05">
-									<img id="crop__img__05"> <input type="hidden"
+									<img id="crop__img__05" src="<%=rList.get(0).get(4).getCq_pic()%>s" style="display:none"> <input type="hidden"
 										id="cropImgSrc05" name="cropImgSrc05" />
 								</div>
 								<div class="qna__ans__group__answer">

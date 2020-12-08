@@ -109,16 +109,16 @@ margin-top:20px;
 		    <form name="f" method="post" action="/LoginPost.do" onsubmit="return doRegUserCheck(this);"> 
 				<label>아이디   </label> <input type="text" placeholder="아이디" class="input" name="user_id"> 
 				<label>비밀번호</label> <input type="password"placeholder="비밀번호" class="input" name="password">
-				<button class="go" type="submit">로그인</button>
-				<button class="go" type="button" onclick="location.href='/insertMember.do'">회원가입</button>
+				<!-- <button class="go" type="submit">로그인</button>
+				<button class="go" type="button" onclick="location.href='/insertMember.do'">회원가입</button> -->
 			</form>
 			
 			<div class="kakao">
 				<!--client key는 REST API 키 redirect key는 개발자 플랫폼에 등록된 거-->
 				<!--<c:if test="${userId eq null}">-->
 				<a
-					href="https://kauth.kakao.com/oauth/authorize?client_id=fb949699752a4185310c104921155f37&redirect_uri=http://localhost:8080/main/mainPage.do&response_type=code"><img
-					src="../../img/kakao_login_medium_wide.png"> </a>
+					href="https://kauth.kakao.com/oauth/authorize?client_id=fb949699752a4185310c104921155f37&redirect_uri=http://localhost:9999/main/mainPage.do&response_type=code"><img
+					src="/img/kakaologin.png"> </a>
 				<!--</c:if> -->
 			</div>
 		</div>

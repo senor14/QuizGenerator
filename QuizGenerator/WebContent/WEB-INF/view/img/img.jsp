@@ -382,7 +382,7 @@ input[type="text"] {
 		<div class="navbar navbar-fixed-top">
 			<nav class="navbar-inner header">
 				<div class="container">
-					<a href="/index.do">
+					<a href="/main/mainPage.do">
 						<div class="brand" style="color: #f89406">QUIZ GENERATOR</div>
 					</a>
 					<ul class="nav pull-right">

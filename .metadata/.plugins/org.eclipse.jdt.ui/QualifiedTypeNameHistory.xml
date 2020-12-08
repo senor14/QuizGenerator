@@ -5,6 +5,11 @@
 <fullyQualifiedTypeName name="poly.service.impl.OcrService"/>
 <fullyQualifiedTypeName name="poly.dto.OcrDTO"/>
 <fullyQualifiedTypeName name="org.apache.log4j.Logger"/>
-<fullyQualifiedTypeName name="java.util.List"/>
 <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.RequestMethod"/>
+<fullyQualifiedTypeName name="org.apache.log4j.spi.LoggerFactory"/>
+<fullyQualifiedTypeName name="org.slf4j.LoggerFactory"/>
+<fullyQualifiedTypeName name="org.apache.pdfbox.jbig2.util.log.LoggerFactory"/>
+<fullyQualifiedTypeName name="java.util.List"/>
+<fullyQualifiedTypeName name="java.util.Iterator"/>
+<fullyQualifiedTypeName name="com.fasterxml.jackson.core.JsonParser"/>
 </qualifiedTypeNameHistroy>

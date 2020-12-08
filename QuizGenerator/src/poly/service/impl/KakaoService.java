@@ -12,7 +12,7 @@ import java.util.HashMap;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 
-import com.fasterxml.jackson.core.JsonParser;
+import com.google.gson.*;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
@@ -43,7 +43,7 @@ public class KakaoService implements IKakaoService{
              StringBuilder sb = new StringBuilder();
              sb.append("grant_type=authorization_code");
              sb.append("&client_id=fb949699752a4185310c104921155f37");  //본인이 발급받은 key
-             sb.append("&redirect_uri=http://localhost:8080/main/mainPage.do");     // 본인이 설정해 놓은 경로
+             sb.append("&redirect_uri=http://localhost:9999/main/mainPage.do");     // 본인이 설정해 놓은 경로
              sb.append("&code=" + authorize_code);
              bw.write(sb.toString());
              bw.flush();

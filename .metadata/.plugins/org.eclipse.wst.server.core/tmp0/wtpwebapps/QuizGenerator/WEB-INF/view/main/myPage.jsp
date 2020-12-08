@@ -1943,10 +1943,10 @@ div.sku strong {
 					<div class="add_to_cart">문제담기</div>
 					<div class="stats">
 						<div class="stats-container">
-							<span class="product_name">제목</span>
-							<p class="sodyd">내용</p>
+							<span class="product_name">문제1</span>
+							<p class="sodyd">#Hadoop #mongoDB</p>
 							<div class="product-options">
-								<strong>내용2</strong> <span>내용 넣기</span> <strong>삭제 NO</strong>
+								<strong>내용</strong> <span>몽고디비 기말고사 준비</span> <strong></strong>
 							</div>
 						</div>
 					</div>
@@ -1964,10 +1964,10 @@ div.sku strong {
 					<div class="add_to_cart">문제담기3</div>
 					<div class="stats">
 						<div class="stats-container">
-							<span class="product_name">제목</span>
-							<p class="sodyd">내용</p>
+							<span class="product_name">문제2</span>
+							<p class="sodyd">내#Index #monogo</p>
 							<div class="product-options">
-								<strong>내용2</strong> <span>내용 넣기</span> <strong>삭제 NO</strong>
+								<strong>내용</strong> <span>기말고사 준비</span> <strong></strong>
 
 							</div>
 						</div>
@@ -1985,10 +1985,10 @@ div.sku strong {
 					<div class="add_to_cart">문제담기4</div>
 					<div class="stats">
 						<div class="stats-container">
-							<span class="product_name">제목</span>
-							<p class="sodyd">내용</p>
+							<span class="product_name">문제3</span>
+							<p class="sodyd">#mongoDB</p>
 							<div class="product-options">
-								<strong>내용2</strong> <span>내용 넣기</span> <strong>삭제 NO</strong>
+								<strong>내용</strong> <span>몽고 어려운 부분</span> <strong></strong>
 							</div>
 						</div>
 					</div>
@@ -2005,10 +2005,10 @@ div.sku strong {
 					<div class="add_to_cart">문제담기</div>
 					<div class="stats">
 						<div class="stats-container">
-							<span class="product_name">제목</span>
-							<p class="sodyd">내용</p>
+							<span class="product_name">문제4</span>
+							<p class="sodyd">#mongoDB #ODB</p>
 							<div class="product-options">
-								<strong>내용2</strong> <span>내용 넣기</span> <strong>삭제 NO</strong>
+								<strong>내용</strong> <span>몽고각 몽고</span> <strong></strong>
 							</div>
 						</div>
 					</div>
@@ -2025,10 +2025,10 @@ div.sku strong {
 					<div class="add_to_cart">문제담기</div>
 					<div class="stats">
 						<div class="stats-container">
-							<span class="product_name">제목</span>
-							<p class="sodyd">내용</p>
+							<span class="product_name">문제5</span>
+							<p class="sodyd">#HADOOP #-put</p>
 							<div class="product-options">
-								<strong>내용2</strong> <span>내용 넣기</span> <strong>삭제 NO</strong>
+								<strong>내용</strong> <span>해둡이 해둡</span> <strong></strong>
 							</div>
 						</div>
 					</div>
@@ -2045,10 +2045,10 @@ div.sku strong {
 					<div class="add_to_cart">문제담기</div>
 					<div class="stats">
 						<div class="stats-container">
-							<span class="product_name">제목</span>
-							<p class="sodyd">내용</p>
+							<span class="product_name">문제6</span>
+							<p class="sodyd">#fs-put</p>
 							<div class="product-options">
-								<strong>내용2</strong> <span>내용 넣기</span> <strong>삭제 NO</strong>
+								<strong>내용</strong> <span>하둡 업로드</span> <strong></strong>
 							</div>
 						</div>
 					</div>
