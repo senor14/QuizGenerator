@@ -633,3 +633,9 @@ Caused by: java.nio.file.InvalidPathException: Illegal char <"> at index 0: "C:\
 
 !ENTRY org.eclipse.m2e.logback.appender 2 0 2020-12-09 20:56:48.159
 !MESSAGE Using platform encoding (MS949 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2020-12-10 19:07:07.297
+!MESSAGE Using platform encoding (MS949 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2020-12-10 19:07:07.304
+!MESSAGE Using platform encoding (MS949 actually) to copy filtered resources, i.e. build is platform dependent!
