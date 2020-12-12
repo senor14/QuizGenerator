@@ -189,7 +189,7 @@
     </script>
     <script id="slider-planes-fs" type="x-shader/x-fragment">
       #ifdef GL_ES
-      precision mediump float;
+      precision mediump float; 
       #endif
       // our texture coords varying
       varying vec2 vTextureCoord;

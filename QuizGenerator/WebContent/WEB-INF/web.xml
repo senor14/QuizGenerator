@@ -50,7 +50,7 @@
     <param-value>/WEB-INF/log4j.properties</param-value>
   </context-param>
   <welcome-file-list>
-    <welcome-file>index.do</welcome-file>
+    <welcome-file>main/mainPage.do</welcome-file>
   </welcome-file-list>
   <error-page>
     <exception-type>java.lang.Throwable</exception-type>
