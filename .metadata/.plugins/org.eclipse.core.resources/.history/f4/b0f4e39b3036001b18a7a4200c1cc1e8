@@ -1,6 +1,0 @@
-package poly.persistance.mapper;
-
-@Mapper("QuizMapper")
-public interface IQuizMapper {
-
-}

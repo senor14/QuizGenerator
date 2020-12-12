@@ -1,9 +1,0 @@
-package poly.persistance.mapper;
-
-import config.Mapper;
-
-@Mapper("CusQMapper")
-public interface ICusQMapper {
-	
-	CusQDTO InsertCusQ
-}

@@ -1,9 +1,0 @@
-package poly.persistance.mapper;
-
-import config.Mapper;
-
-@Mapper("QuizMapper")
-public interface IQuizMapper {
-	
-	int insertQuiz() throws Exception;
-}
