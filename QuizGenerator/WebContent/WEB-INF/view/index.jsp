@@ -127,8 +127,7 @@
               crossorigin
             />
           </div>
-          
-          
+           
         </div>
 
         <div class="plane-wrapper">
