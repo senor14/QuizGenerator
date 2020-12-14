@@ -58,7 +58,6 @@
   -->
     <!-- div that will hold our WebGL canvas -->
     <div id="canvas"></div>
-
     <div id="content">
       <div class="navbar navbar-fixed-top">
         <nav class="navbar-inner header">
