@@ -11,7 +11,7 @@ public class CusQDTO {
     private String chg_id;
     private String reg_dt;
     private String chg_dt;
-    
+     
     // 임시 변수
     private String id;
     private String q_pic;
