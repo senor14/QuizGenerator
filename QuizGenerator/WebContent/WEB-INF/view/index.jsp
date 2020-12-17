@@ -66,7 +66,7 @@
             <div class="brand" style="color : #f89406">QUIZ GENERATOR</div>
             </a>
             <ul class="nav pull-right">
-              <li>
+              <li>  
                 <a class="nav-link"> MYPAGE </a>
               </li>
               <li>
