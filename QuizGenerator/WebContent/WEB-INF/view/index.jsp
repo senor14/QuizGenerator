@@ -86,7 +86,7 @@
         <br />
       </div>
       <h1 id="title"></h1>
- 
+
       <!-- drag slider -->
 
       <div id="planes">
