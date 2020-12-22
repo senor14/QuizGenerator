@@ -9,7 +9,6 @@ INDEX VERSION 1.131+E:\javaRepo\QuizGenerator\.metadata\.plugins\org.eclipse.jdt
 651470027.index
 4003711543.index
 3104147617.index
-1885928098.index
 3939126438.index
 810198544.index
 242860300.index
