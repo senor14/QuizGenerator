@@ -160,7 +160,7 @@
 
       <div id="drag-tip">Drag to explore</div>
     </div>
-  
+    
     <script id="slider-planes-vs" type="x-shader/x-vertex">
       #ifdef GL_ES
       precision mediump float;
