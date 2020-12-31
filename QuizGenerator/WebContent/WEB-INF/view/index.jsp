@@ -337,7 +337,7 @@
           finalColor = mix(vec4(uBgColor.r * spreadFromMouseAdjusted / 255.0, uBgColor.g * spreadFromMouseAdjusted / 255.0, uBgColor.b * spreadFromMouseAdjusted / 255.0, spreadFromMouseAdjusted), finalColor, finalColor.a);
 
           gl_FragColor = finalColor;
-      }
+      }     
     </script>
     <script type="text/javascript"
 	src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
