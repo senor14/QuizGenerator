@@ -8707,3 +8707,8 @@ org.eclipse.core.runtime.CoreException: Could not resolve artifact com.google.co
 2021-01-07 04:56:14,249 [Worker-12: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory E:\javaRepo\QuizGenerator\QuizGenerator\src\main\resources
 2021-01-07 04:56:14,254 [Worker-12: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (MS949 actually) to copy filtered resources, i.e. build is platform dependent!
 2021-01-07 04:56:14,278 [Worker-12: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory E:\javaRepo\QuizGenerator\QuizGenerator\src\test\resources
+2021-01-08 23:49:35,624 [Worker-6: Loading available Gradle versions] INFO  o.e.b.c.i.u.g.PublishedGradleVersions - Gradle version information cache is out-of-date. Trying to update.
+2021-01-08 23:50:09,892 [Worker-11: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (MS949 actually) to copy filtered resources, i.e. build is platform dependent!
+2021-01-08 23:50:09,911 [Worker-11: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory E:\javaRepo\QuizGenerator\QuizGenerator\src\main\resources
+2021-01-08 23:50:09,918 [Worker-11: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (MS949 actually) to copy filtered resources, i.e. build is platform dependent!
+2021-01-08 23:50:09,940 [Worker-11: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory E:\javaRepo\QuizGenerator\QuizGenerator\src\test\resources
