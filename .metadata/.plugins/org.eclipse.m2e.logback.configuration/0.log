@@ -8716,3 +8716,12 @@ org.eclipse.core.runtime.CoreException: Could not resolve artifact com.google.co
 2021-01-09 00:15:43,787 [Worker-6: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory E:\javaRepo\QuizGenerator\QuizGenerator\src\main\resources
 2021-01-09 00:15:43,791 [Worker-6: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (MS949 actually) to copy filtered resources, i.e. build is platform dependent!
 2021-01-09 00:15:43,809 [Worker-6: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory E:\javaRepo\QuizGenerator\QuizGenerator\src\test\resources
+2021-01-10 20:06:04,574 [Worker-2: Loading available Gradle versions] INFO  o.e.b.c.i.u.g.PublishedGradleVersions - Gradle version information cache is out-of-date. Trying to update.
+2021-01-10 20:06:26,806 [Worker-10: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (MS949 actually) to copy filtered resources, i.e. build is platform dependent!
+2021-01-10 20:06:26,824 [Worker-10: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory E:\javaRepo\QuizGenerator\QuizGenerator\src\main\resources
+2021-01-10 20:06:26,828 [Worker-10: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (MS949 actually) to copy filtered resources, i.e. build is platform dependent!
+2021-01-10 20:06:26,868 [Worker-10: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory E:\javaRepo\QuizGenerator\QuizGenerator\src\test\resources
+2021-01-10 20:14:03,429 [Worker-16: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (MS949 actually) to copy filtered resources, i.e. build is platform dependent!
+2021-01-10 20:14:03,445 [Worker-16: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory E:\javaRepo\QuizGenerator\QuizGenerator\src\main\resources
+2021-01-10 20:14:03,448 [Worker-16: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (MS949 actually) to copy filtered resources, i.e. build is platform dependent!
+2021-01-10 20:14:03,461 [Worker-16: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory E:\javaRepo\QuizGenerator\QuizGenerator\src\test\resources
