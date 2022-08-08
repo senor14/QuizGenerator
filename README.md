@@ -6,6 +6,10 @@
 
 ## 진행 기간: 2020.11 ~ 2020.11
 
+## 시연영상
+
+[https://www.youtube.com/watch?v=B9nBZLqbEko](https://www.youtube.com/watch?v=B9nBZLqbEko)
+
 ## 사용 기술
 
 - Java 8 - 개발 언어
@@ -18,8 +22,6 @@
 - AWS EC2, RDS, Route 53 - 서버 인프라
 
 ## 설명
-
----
 
 ![QuizGenerator1.png](https://user-images.githubusercontent.com/64997244/183339719-7d45d522-4c70-454d-b888-639588eeb30e.png)
 
@@ -36,9 +38,6 @@
 
 ## 담당 기능
 
-
-
----
 
 - Tesseract를 활용하여 해당 문자를 인식하는 기능 구현
 - Jcrop을 활용하여 문자 cropping 기능 구현
